@@ -7,15 +7,30 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct ContentView : View {
+    
+    @StateObject var model: ArticleListViewModel = ArticleListViewModel()
+    
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        
+        NavigationView {
+            
+            List(model.articles) { article in
+                NewsRow(article: article)
+//                NavigationLink(
+//                    destination: NewsDetailed(url: article.urlWeb)) {
+//                    NewsRow(article: article)
+//                }
+            }
+            .navigationTitle(Text("News for today"))
+        }
+    }
+    
+    
+}
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()//(model: ArticleListViewModel())
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
