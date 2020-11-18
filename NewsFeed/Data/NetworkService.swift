@@ -41,13 +41,24 @@ final class ImageStore {
 
     static func downloadImageBy(url: String, completion: @escaping (UIImage)->Void) {
         
-        guard let url = URL(string: url) else { return }
+        guard let url = URL(string: url) else {
+            print("failed to produce URL for image")
+            return }
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             if let data = data, error == nil {
                 if let image = UIImage(data: data) {
                 DispatchQueue.main.async {
                     completion(image)
                 }
+                } else {
+                    print("failed to get Image from data")
+                }
+            } else {
+                if error != nil {
+                    print(error?.localizedDescription as Any)
+                }
+                if data == nil {
+                    print("no data for Image")
                 }
             }
         }

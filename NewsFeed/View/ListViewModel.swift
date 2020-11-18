@@ -7,9 +7,9 @@
 
 import SwiftUI
 
-class ArticleListViewModel: ObservableObject {
+class ListViewModel: ObservableObject {
     
-    @Published var articles = [ArticleViewModel]()
+    @Published var articles = [ViewModel]()
     
     init() {
         fetchData()
@@ -19,23 +19,24 @@ class ArticleListViewModel: ObservableObject {
     private func fetchData() {
         NetworkService.loadData() { articles in
             if let articles = articles {
-                self.articles = articles.map(ArticleViewModel.init)
+                self.articles = articles.map(ViewModel.init)
                 self.imagesData()
-
             }
         }
     }
     
     private func imagesData(_ index: Int = 0) {
+        print(index)
         guard articles.count > index else { return }
         let article = articles[index]
-        ImageStore.downloadImageBy(url: article.urlToImage) {
+        if article.urlToImage != nil {
+        ImageStore.downloadImageBy(url: article.urlToImage!) {
             self.articles[index].image = $0
-            if self.articles[0].image != nil, index == 0 {
-            }
             self.imagesData(index + 1)
         }
-        
+        } else {
+            self.imagesData(index + 1)
+        }
     }
 }
 

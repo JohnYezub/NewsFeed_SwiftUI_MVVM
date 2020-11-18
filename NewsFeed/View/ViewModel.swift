@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ArticleViewModel: Identifiable {
+struct ViewModel: Identifiable {
     
     let id = UUID()
     
@@ -28,17 +28,17 @@ struct ArticleViewModel: Identifiable {
     var sourceName: String {
         return self.article.source.name
     }
-    var urlToImage: String {
-        return self.article.urlToImage ?? ""
+    var urlToImage: String? {
+        return self.article.urlToImage
     }
     
     var urlWeb: String {
         return self.article.url
     }
     
-    var image: UIImage!
+    var image: UIImage?
     
-    var publishedAt: String? {
+    var publishedAt: String {
         //2020-11-11T21:04:00Z
         let df = DateFormatter()
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
@@ -49,7 +49,7 @@ struct ArticleViewModel: Identifiable {
             df.timeStyle = .short
             return df.string(from: date)
         } else {
-            return nil
+            return ""
         }
     }
 }

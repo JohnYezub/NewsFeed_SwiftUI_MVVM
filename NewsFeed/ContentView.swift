@@ -9,18 +9,18 @@ import SwiftUI
 
 struct ContentView : View {
     
-    @StateObject var model: ArticleListViewModel = ArticleListViewModel()
+    @StateObject var model: ListViewModel = ListViewModel()
     
     var body: some View {
         
         NavigationView {
             
             List(model.articles) { article in
-                NewsRow(article: article)
-//                NavigationLink(
-//                    destination: NewsDetailed(url: article.urlWeb)) {
-//                    NewsRow(article: article)
-//                }
+                
+                NavigationLink(destination: NewsDetailed(article: article))
+                    {
+                        NewsRow(article: article)
+                    }
             }
             .navigationTitle(Text("News for today"))
         }

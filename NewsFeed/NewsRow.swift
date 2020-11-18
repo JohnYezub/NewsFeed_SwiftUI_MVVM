@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NewsRow: View {
    
-    var article: ArticleViewModel
+    var article: ViewModel
     
     var body: some View {
         HStack {
@@ -21,7 +21,7 @@ struct NewsRow: View {
                         .font(.title2)
                     Spacer()
                     if article.image != nil {
-                        Image(uiImage: article.image)
+                        Image(uiImage: article.image!)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                     }
@@ -37,7 +37,7 @@ struct NewsRow: View {
                     
                     Text(article.sourceName)
                         .foregroundColor(.secondary)
-                        .lineLimit(nil)
+                        .lineLimit(1)
                     Spacer()
                     if let publishedAt = article.publishedAt {
                     Text(publishedAt)
@@ -53,7 +53,7 @@ struct NewsRow: View {
 
 struct NewsRow_Previews: PreviewProvider {
     static var previews: some View {
-        NewsRow(article: ArticleListViewModel().articles[0])
+        NewsRow(article: ListViewModel().articles[0])
             
     }
 }
