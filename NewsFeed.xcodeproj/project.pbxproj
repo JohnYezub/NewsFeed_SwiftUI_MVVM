@@ -16,6 +16,26 @@
 		84B989BE256657F300257DE5 /* WidgetContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B989BD256657F300257DE5 /* WidgetContent.swift */; };
 		84B989C1256658BA00257DE5 /* WidgetContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B989BD256657F300257DE5 /* WidgetContent.swift */; };
 		84B989C4256658C300257DE5 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D44E322563F591009CA9DA /* JSONModel.swift */; };
+		84B989D42566949E00257DE5 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84B989D22566949E00257DE5 /* Interface.storyboard */; };
+		84B989D6256694A100257DE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84B989D5256694A100257DE5 /* Assets.xcassets */; };
+		84B989DD256694A100257DE5 /* NewsFeedWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 84B989DC256694A100257DE5 /* NewsFeedWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		84B989E2256694A100257DE5 /* HostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B989E1256694A100257DE5 /* HostingController.swift */; };
+		84B989E4256694A100257DE5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B989E3256694A100257DE5 /* ContentView.swift */; };
+		84B989E6256694A100257DE5 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B989E5256694A100257DE5 /* ExtensionDelegate.swift */; };
+		84B989E8256694A100257DE5 /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B989E7256694A100257DE5 /* NotificationController.swift */; };
+		84B989EA256694A100257DE5 /* NotificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B989E9256694A100257DE5 /* NotificationView.swift */; };
+		84B989EC256694A100257DE5 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B989EB256694A100257DE5 /* ComplicationController.swift */; };
+		84B989EE256694A400257DE5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84B989ED256694A400257DE5 /* Assets.xcassets */; };
+		84B989F1256694A400257DE5 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84B989F0256694A400257DE5 /* Preview Assets.xcassets */; };
+		84B989F6256694A400257DE5 /* NewsFeedWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 84B989D02566949E00257DE5 /* NewsFeedWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		84B98A0C2566966D00257DE5 /* JSONModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D44E322563F591009CA9DA /* JSONModel.swift */; };
+		84B98A11256696BF00257DE5 /* ListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D44E2C2563F548009CA9DA /* ListViewModel.swift */; };
+		84B98A16256696C300257DE5 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D44E292563F527009CA9DA /* ViewModel.swift */; };
+		84B98A1F256696FE00257DE5 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D44E2F2563F563009CA9DA /* NetworkService.swift */; };
+		84B98A242566974300257DE5 /* NewsRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D44E232563F4E0009CA9DA /* NewsRow.swift */; };
+		84B98A292566977800257DE5 /* NewsDetailed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D44E262563F503009CA9DA /* NewsDetailed.swift */; };
+		84B98A2F256697D900257DE5 /* NewsRowWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B98A2E256697D900257DE5 /* NewsRowWatch.swift */; };
+		84B98A352566990D00257DE5 /* NewsDetailedWatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B98A342566990D00257DE5 /* NewsDetailedWatch.swift */; };
 		84D44E142563F493009CA9DA /* NewsFeedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D44E132563F493009CA9DA /* NewsFeedApp.swift */; };
 		84D44E162563F493009CA9DA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D44E152563F493009CA9DA /* ContentView.swift */; };
 		84D44E182563F496009CA9DA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 84D44E172563F496009CA9DA /* Assets.xcassets */; };
@@ -36,6 +56,20 @@
 			remoteGlobalIDString = 84B989932566556700257DE5;
 			remoteInfo = NewsWidgetExtension;
 		};
+		84B989DE256694A100257DE5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D44E082563F493009CA9DA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 84B989DB256694A100257DE5;
+			remoteInfo = "NewsFeedWatch Extension";
+		};
+		84B989F4256694A400257DE5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D44E082563F493009CA9DA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 84B989CF2566949E00257DE5;
+			remoteInfo = NewsFeedWatch;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,6 +80,28 @@
 			dstSubfolderSpec = 13;
 			files = (
 				84B989A22566556A00257DE5 /* NewsWidgetExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84B989F7256694A400257DE5 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				84B989F6256694A400257DE5 /* NewsFeedWatch.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84B989FA256694A400257DE5 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				84B989DD256694A100257DE5 /* NewsFeedWatch Extension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -61,6 +117,23 @@
 		84B9899F2566556A00257DE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84B989A92566563C00257DE5 /* NewsWidgetEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsWidgetEntryView.swift; sourceTree = "<group>"; };
 		84B989BD256657F300257DE5 /* WidgetContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WidgetContent.swift; sourceTree = "<group>"; };
+		84B989D02566949E00257DE5 /* NewsFeedWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsFeedWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		84B989D32566949E00257DE5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
+		84B989D5256694A100257DE5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		84B989D7256694A100257DE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84B989DC256694A100257DE5 /* NewsFeedWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "NewsFeedWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
+		84B989E1256694A100257DE5 /* HostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingController.swift; sourceTree = "<group>"; };
+		84B989E3256694A100257DE5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		84B989E5256694A100257DE5 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
+		84B989E7256694A100257DE5 /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		84B989E9256694A100257DE5 /* NotificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationView.swift; sourceTree = "<group>"; };
+		84B989EB256694A100257DE5 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		84B989ED256694A400257DE5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		84B989F0256694A400257DE5 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		84B989F2256694A400257DE5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		84B989F3256694A400257DE5 /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
+		84B98A2E256697D900257DE5 /* NewsRowWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsRowWatch.swift; sourceTree = "<group>"; };
+		84B98A342566990D00257DE5 /* NewsDetailedWatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NewsDetailedWatch.swift; path = "Preview Content/NewsDetailedWatch.swift"; sourceTree = "<group>"; };
 		84D44E102563F493009CA9DA /* NewsFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D44E132563F493009CA9DA /* NewsFeedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFeedApp.swift; sourceTree = "<group>"; };
 		84D44E152563F493009CA9DA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -82,6 +155,13 @@
 			files = (
 				84B989992566556700257DE5 /* SwiftUI.framework in Frameworks */,
 				84B989972566556700257DE5 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84B989D9256694A100257DE5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -116,11 +196,50 @@
 			path = NewsWidget;
 			sourceTree = "<group>";
 		};
+		84B989D12566949E00257DE5 /* NewsFeedWatch */ = {
+			isa = PBXGroup;
+			children = (
+				84B989D22566949E00257DE5 /* Interface.storyboard */,
+				84B989D5256694A100257DE5 /* Assets.xcassets */,
+				84B989D7256694A100257DE5 /* Info.plist */,
+			);
+			path = NewsFeedWatch;
+			sourceTree = "<group>";
+		};
+		84B989E0256694A100257DE5 /* NewsFeedWatch Extension */ = {
+			isa = PBXGroup;
+			children = (
+				84B989E1256694A100257DE5 /* HostingController.swift */,
+				84B989E3256694A100257DE5 /* ContentView.swift */,
+				84B98A2E256697D900257DE5 /* NewsRowWatch.swift */,
+				84B98A342566990D00257DE5 /* NewsDetailedWatch.swift */,
+				84B989E5256694A100257DE5 /* ExtensionDelegate.swift */,
+				84B989E7256694A100257DE5 /* NotificationController.swift */,
+				84B989E9256694A100257DE5 /* NotificationView.swift */,
+				84B989EB256694A100257DE5 /* ComplicationController.swift */,
+				84B989ED256694A400257DE5 /* Assets.xcassets */,
+				84B989F2256694A400257DE5 /* Info.plist */,
+				84B989F3256694A400257DE5 /* PushNotificationPayload.apns */,
+				84B989EF256694A400257DE5 /* Preview Content */,
+			);
+			path = "NewsFeedWatch Extension";
+			sourceTree = "<group>";
+		};
+		84B989EF256694A400257DE5 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				84B989F0256694A400257DE5 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
 		84D44E072563F493009CA9DA = {
 			isa = PBXGroup;
 			children = (
 				84D44E122563F493009CA9DA /* NewsFeed */,
 				84B9899A2566556700257DE5 /* NewsWidget */,
+				84B989D12566949E00257DE5 /* NewsFeedWatch */,
+				84B989E0256694A100257DE5 /* NewsFeedWatch Extension */,
 				84B989952566556700257DE5 /* Frameworks */,
 				84D44E112563F493009CA9DA /* Products */,
 			);
@@ -131,6 +250,8 @@
 			children = (
 				84D44E102563F493009CA9DA /* NewsFeed.app */,
 				84B989942566556700257DE5 /* NewsWidgetExtension.appex */,
+				84B989D02566949E00257DE5 /* NewsFeedWatch.app */,
+				84B989DC256694A100257DE5 /* NewsFeedWatch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -197,6 +318,40 @@
 			productReference = 84B989942566556700257DE5 /* NewsWidgetExtension.appex */;
 			productType = "com.apple.product-type.app-extension";
 		};
+		84B989CF2566949E00257DE5 /* NewsFeedWatch */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84B989FE256694A400257DE5 /* Build configuration list for PBXNativeTarget "NewsFeedWatch" */;
+			buildPhases = (
+				84B989CE2566949E00257DE5 /* Resources */,
+				84B989FA256694A400257DE5 /* Embed App Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				84B989DF256694A100257DE5 /* PBXTargetDependency */,
+			);
+			name = NewsFeedWatch;
+			productName = NewsFeedWatch;
+			productReference = 84B989D02566949E00257DE5 /* NewsFeedWatch.app */;
+			productType = "com.apple.product-type.application.watchapp2";
+		};
+		84B989DB256694A100257DE5 /* NewsFeedWatch Extension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 84B989FD256694A400257DE5 /* Build configuration list for PBXNativeTarget "NewsFeedWatch Extension" */;
+			buildPhases = (
+				84B989D8256694A100257DE5 /* Sources */,
+				84B989D9256694A100257DE5 /* Frameworks */,
+				84B989DA256694A100257DE5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "NewsFeedWatch Extension";
+			productName = "NewsFeedWatch Extension";
+			productReference = 84B989DC256694A100257DE5 /* NewsFeedWatch Extension.appex */;
+			productType = "com.apple.product-type.watchkit2-extension";
+		};
 		84D44E0F2563F493009CA9DA /* NewsFeed */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84D44E1F2563F496009CA9DA /* Build configuration list for PBXNativeTarget "NewsFeed" */;
@@ -205,11 +360,13 @@
 				84D44E0D2563F493009CA9DA /* Frameworks */,
 				84D44E0E2563F493009CA9DA /* Resources */,
 				84B989A32566556A00257DE5 /* Embed App Extensions */,
+				84B989F7256694A400257DE5 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				84B989A12566556A00257DE5 /* PBXTargetDependency */,
+				84B989F5256694A400257DE5 /* PBXTargetDependency */,
 			);
 			name = NewsFeed;
 			productName = NewsFeed;
@@ -226,6 +383,12 @@
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
 					84B989932566556700257DE5 = {
+						CreatedOnToolsVersion = 12.1;
+					};
+					84B989CF2566949E00257DE5 = {
+						CreatedOnToolsVersion = 12.1;
+					};
+					84B989DB256694A100257DE5 = {
 						CreatedOnToolsVersion = 12.1;
 					};
 					84D44E0F2563F493009CA9DA = {
@@ -248,6 +411,8 @@
 			targets = (
 				84D44E0F2563F493009CA9DA /* NewsFeed */,
 				84B989932566556700257DE5 /* NewsWidgetExtension */,
+				84B989CF2566949E00257DE5 /* NewsFeedWatch */,
+				84B989DB256694A100257DE5 /* NewsFeedWatch Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -258,6 +423,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				84B9899E2566556A00257DE5 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84B989CE2566949E00257DE5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84B989D6256694A100257DE5 /* Assets.xcassets in Resources */,
+				84B989D42566949E00257DE5 /* Interface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84B989DA256694A100257DE5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84B989F1256694A400257DE5 /* Preview Assets.xcassets in Resources */,
+				84B989EE256694A400257DE5 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -281,6 +464,27 @@
 				84B989C1256658BA00257DE5 /* WidgetContent.swift in Sources */,
 				84B989AD2566565400257DE5 /* NewsWidgetEntryView.swift in Sources */,
 				84B9899C2566556700257DE5 /* NewsWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		84B989D8256694A100257DE5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				84B98A1F256696FE00257DE5 /* NetworkService.swift in Sources */,
+				84B98A242566974300257DE5 /* NewsRow.swift in Sources */,
+				84B98A16256696C300257DE5 /* ViewModel.swift in Sources */,
+				84B989E4256694A100257DE5 /* ContentView.swift in Sources */,
+				84B989E2256694A100257DE5 /* HostingController.swift in Sources */,
+				84B989E8256694A100257DE5 /* NotificationController.swift in Sources */,
+				84B989E6256694A100257DE5 /* ExtensionDelegate.swift in Sources */,
+				84B989EA256694A100257DE5 /* NotificationView.swift in Sources */,
+				84B98A11256696BF00257DE5 /* ListViewModel.swift in Sources */,
+				84B98A0C2566966D00257DE5 /* JSONModel.swift in Sources */,
+				84B98A2F256697D900257DE5 /* NewsRowWatch.swift in Sources */,
+				84B98A292566977800257DE5 /* NewsDetailed.swift in Sources */,
+				84B98A352566990D00257DE5 /* NewsDetailedWatch.swift in Sources */,
+				84B989EC256694A100257DE5 /* ComplicationController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -308,7 +512,28 @@
 			target = 84B989932566556700257DE5 /* NewsWidgetExtension */;
 			targetProxy = 84B989A02566556A00257DE5 /* PBXContainerItemProxy */;
 		};
+		84B989DF256694A100257DE5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 84B989DB256694A100257DE5 /* NewsFeedWatch Extension */;
+			targetProxy = 84B989DE256694A100257DE5 /* PBXContainerItemProxy */;
+		};
+		84B989F5256694A400257DE5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 84B989CF2566949E00257DE5 /* NewsFeedWatch */;
+			targetProxy = 84B989F4256694A400257DE5 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		84B989D22566949E00257DE5 /* Interface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				84B989D32566949E00257DE5 /* Base */,
+			);
+			name = Interface.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		84B989A42566556A00257DE5 /* Debug */ = {
@@ -350,6 +575,94 @@
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		84B989F8256694A400257DE5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WZ6RX2T84D;
+				IBSC_MODULE = NewsFeedWatch_Extension;
+				INFOPLIST_FILE = NewsFeedWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = EvgenyEzub.NewsFeed.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+			};
+			name = Debug;
+		};
+		84B989F9256694A400257DE5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WZ6RX2T84D;
+				IBSC_MODULE = NewsFeedWatch_Extension;
+				INFOPLIST_FILE = NewsFeedWatch/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = EvgenyEzub.NewsFeed.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+			};
+			name = Release;
+		};
+		84B989FB256694A400257DE5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"NewsFeedWatch Extension/Preview Content\"";
+				DEVELOPMENT_TEAM = WZ6RX2T84D;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "NewsFeedWatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = EvgenyEzub.NewsFeed.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
+			};
+			name = Debug;
+		};
+		84B989FC256694A400257DE5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"NewsFeedWatch Extension/Preview Content\"";
+				DEVELOPMENT_TEAM = WZ6RX2T84D;
+				ENABLE_PREVIEWS = YES;
+				INFOPLIST_FILE = "NewsFeedWatch Extension/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = EvgenyEzub.NewsFeed.watchkitapp.watchkitextension;
+				PRODUCT_NAME = "${TARGET_NAME}";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 7.0;
 			};
 			name = Release;
 		};
@@ -523,6 +836,24 @@
 			buildConfigurations = (
 				84B989A42566556A00257DE5 /* Debug */,
 				84B989A52566556A00257DE5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84B989FD256694A400257DE5 /* Build configuration list for PBXNativeTarget "NewsFeedWatch Extension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84B989FB256694A400257DE5 /* Debug */,
+				84B989FC256694A400257DE5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		84B989FE256694A400257DE5 /* Build configuration list for PBXNativeTarget "NewsFeedWatch" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				84B989F8256694A400257DE5 /* Debug */,
+				84B989F9256694A400257DE5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
