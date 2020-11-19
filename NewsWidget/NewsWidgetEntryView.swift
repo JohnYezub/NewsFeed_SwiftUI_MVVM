@@ -19,32 +19,20 @@ struct NewsWidgetEntryView : View {
                 Text(entry.title)
                     .font(.subheadline)
                     .lineLimit(nil)
+                    .widgetURL(URL(string:"NewsWidgetURL://link/\(entry.url)")!)
             }
             .padding()
         default:
             VStack {
+                //it doesnt matter how our link looks like, the important thing is to send news article id/number
                 Link(destination: URL(string:"NewsWidgetURL://link/\(entry.url)")!)  {
                     HStack {
                         Text(entry.title)
                             .font(.title3)
                             .lineLimit(nil)
                             .padding(.bottom, 10)
-                        
-                        //                    if entry.image != nil {
-                        //                        Image(uiImage: entry.image!)
-                        //                            .resizable()
-                        //                            .aspectRatio(contentMode: .fit)
-                        //                    } else {
-                        //                        Image("newspic")
-                        //                            .resizable()
-                        //                            .aspectRatio(contentMode: .fit)
-                        //                    }
                     }
                 }
-                //.widgetURL(NewsWidgetEntryView.deeplinkURL)
-                // Link(destination: URL(string:entry.url!)!) {
-                //             Text("Link 1")
-                //         }
                 Text(entry.description ?? "")
                     .foregroundColor(.secondary)
                     .font(.subheadline)

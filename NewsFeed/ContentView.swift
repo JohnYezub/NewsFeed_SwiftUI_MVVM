@@ -17,19 +17,31 @@ struct ContentView : View {
         
         NavigationView {
             
+            
             List(model.articles) { article in
-                
-                
-                NavigationLink(destination: NewsDetailed(article: article), isActive: $linkActive)
+                //if we come from widget link, lets open the selected news article
+                if linkActive {
+                    
+                    NavigationLink(destination: NewsDetailed(article: model.articles[value]), isActive: $linkActive)
                     {
                         NewsRow(article: article)
                     }
+                // otherwise, open normal list of articles
+                } else {
+                    
+                NavigationLink(destination: NewsDetailed(article: article))
+                    {
+                        NewsRow(article: article)
+                    }
+                }
+                                
             }
             .navigationTitle(Text("News for today"))
+            
+            //once the link was tapped on widget, we get the value here
             .onOpenURL { url in
                 linkActive = true
-                //value = Int(url)
-                print(url.pathComponents)
+                value = Int(url.lastPathComponent)!
                 print(url.lastPathComponent)
                 print("Received deep link: \(url)")
             }
