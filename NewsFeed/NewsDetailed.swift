@@ -57,8 +57,6 @@ struct NewsDetailed_Previews: PreviewProvider {
         let article = Article(source: Source(id: nil, name: "name"), author: nil, title: "Title", description: "description", url: "http://google.com", urlToImage: nil, publishedAt: "14:52")
         NewsDetailed(article: ViewModel(article: article))
         
-        //        NewsDetailed(article: ViewModel(source: Source(id: nil, name: "name"), author: nil, title: "Title", description: "description", url: "http://google.com", urlToImage: nil, publishedAt: "14:52"))
-        
     }
 }
 

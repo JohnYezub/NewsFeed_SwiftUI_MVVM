@@ -4,10 +4,8 @@
 //
 //  Created by   admin on 17.11.2020.
 //
-
 import Foundation
-import SwiftUI
-
+import UIKit
 class NetworkService {
     
     static func loadData(completion: @escaping ([Article]?) -> ()) {
