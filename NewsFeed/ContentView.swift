@@ -9,15 +9,19 @@ import SwiftUI
 
 struct ContentView : View {
     
+    //observable model
     @StateObject var model: ListViewModel = ListViewModel()
+    
+    //deeplink received from widget will trigger this values
     @State var linkActive: Bool = false
     @State var value: Int = 0
     
     var body: some View {
         
+        //Navigation controller? Forget it, here is just closure with view!
         NavigationView {
             
-            
+            //this is aka "TableView"
             List(model.articles) { article in
                 //if we come from widget link, lets open the selected news article
                 if linkActive {
