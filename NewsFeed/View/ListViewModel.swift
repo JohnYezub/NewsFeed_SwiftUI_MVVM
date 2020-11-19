@@ -26,7 +26,7 @@ class ListViewModel: ObservableObject {
     }
     
     private func imagesData(_ index: Int = 0) {
-        print(index)
+        //print(index)
         guard articles.count > index else { return }
         let article = articles[index]
         if article.urlToImage != nil {
