@@ -8,11 +8,18 @@ Allows the user to access and read US news from their apple watch.
 
 # How to Use
 
-hhhhh
+* Connect your iPhone to your computer with a USB cable.
+* Launch XCode
+* Open this project
+* Connect your iPhone
+* Select "Your Apple Watch via Your iPhone" in the active scheme
+* Build and run the application
 
 # Features
 
-* 'Custom Notification UI'
+* Custom Notification UI
+* Integration with newsapi.org
+* 
 
 
 
