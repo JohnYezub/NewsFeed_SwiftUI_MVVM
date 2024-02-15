@@ -41,3 +41,5 @@ https://newsapi.org/
 * `MVVM pattern`
 * `Network services`
 
+### Troubleshooting
+If having difficulty downloading, run the iOS target on the iPhone the watch is attached to, wait for it to install on the watch (check for progress in the Watch app) and then run it manually from the watch.
