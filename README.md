@@ -1,12 +1,12 @@
 # SwiftUI with MVVM
 
-Simple SwiftUI App demonstrates lists of US news (thanks https://newsapi.org/).
+Simple SwiftUI App demonstrates lists of US news. Allows the user to access and read the US news from their apple watch.
 
 UPDT: Add WidgetKit and deeplinks. Add WatchOS support.
 
 ![NewsFeed](./news2.gif "SwiftUI with MVVM")
 
-# Special Thanks To:
+# News Database:
 https://newsapi.org/
 
 ### Usage:
