@@ -10,7 +10,7 @@ Allows the user to access and read US news from their apple watch.
 
 hhhhh
 
-#Features
+# Features
 
 * 'Custom Notification UI'
 
@@ -18,7 +18,7 @@ hhhhh
 
 
 
-#Update
+# Update
 Added WidgetKit and deeplinks. Added WatchOS support.
 
 ![NewsFeed](./news2.gif "SwiftUI with MVVM")
