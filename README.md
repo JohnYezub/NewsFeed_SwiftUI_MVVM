@@ -18,9 +18,10 @@ hhhhh
 
 
 
-# Update
+# Updates
 Added WidgetKit and deeplinks. Added WatchOS support.
 
+# Example
 ![NewsFeed](./news2.gif "SwiftUI with MVVM")
 
 # News Database:
