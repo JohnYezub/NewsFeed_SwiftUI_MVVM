@@ -6,6 +6,8 @@ Has widgits and WatchOS.
 
 Allows the user to access and read US news from their apple watch.
 
+Seamlessly incorporates this application into their own device.
+
 # How to Use
 
 * Connect your iPhone to your computer with a USB cable.
