@@ -19,7 +19,7 @@ Allows the user to access and read US news from their apple watch.
 
 * Custom Notification UI
 * Integration with newsapi.org
-* 
+* Easy access and availability of news stories
 
 
 
