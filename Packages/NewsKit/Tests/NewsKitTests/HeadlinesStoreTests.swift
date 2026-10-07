@@ -15,13 +15,16 @@ struct HeadlinesStoreTests {
         FileHeadlinesStore(fileURL: directory.appending(path: "nested/headlines.json"))
     }
 
-    private let fullArticle = Article(source: Article.Source(id: "cnn", name: "CNN"),
-                                      author: "Jane Doe",
-                                      title: "Title",
-                                      description: "Description",
-                                      url: URL(string: "https://example.com/1")!,
-                                      urlToImage: URL(string: "https://example.com/1.jpg"),
-                                      publishedAt: novemberEleventh2020.addingTimeInterval(0.25))
+    private let fullArticle = Article(
+        source: Article.Source(id: "cnn", name: "CNN"),
+        author: "Jane Doe",
+        title: "Title",
+        description: "Description",
+        // This fixture uses a valid, fixed HTTPS URL literal.
+        // swiftlint:disable:next force_unwrapping
+        url: URL(string: "https://example.com/1")!,
+        urlToImage: URL(string: "https://example.com/1.jpg"),
+        publishedAt: novemberEleventh2020.addingTimeInterval(0.25))
 
     @Test func articleRoundTripsThroughJSON() throws {
         let articles = [fullArticle, Article.fixture("Minimal")]

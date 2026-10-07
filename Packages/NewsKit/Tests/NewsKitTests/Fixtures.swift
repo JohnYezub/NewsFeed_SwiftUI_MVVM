@@ -7,15 +7,21 @@ import Foundation
 @testable import NewsKit
 
 extension Article {
-    static func fixture(_ title: String = "Title",
-                        url: String? = nil,
-                        image: String? = nil,
-                        publishedAt: Date? = nil) -> Article {
-        Article(source: Source(name: "CNN"),
-                title: title,
-                url: URL(string: url ?? "https://example.com/\(title)")!,
-                urlToImage: image.flatMap { URL(string: $0) },
-                publishedAt: publishedAt)
+    static func fixture(
+        _ title: String = "Title",
+        url: String? = nil,
+        image: String? = nil,
+        publishedAt: Date? = nil
+    ) -> Article {
+        guard let articleURL = URL(string: url ?? "https://example.com/\(title)") else {
+            preconditionFailure("Invalid article fixture URL")
+        }
+        return Article(
+            source: Source(name: "CNN"),
+            title: title,
+            url: articleURL,
+            urlToImage: image.flatMap { URL(string: $0) },
+            publishedAt: publishedAt)
     }
 }
 

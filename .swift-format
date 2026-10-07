@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "indentation": { "spaces": 4 },
+  "lineLength": 140,
+  "respectsExistingLineBreaks": true,
+  "indentConditionalCompilationBlocks": false,
+  "multiElementCollectionTrailingCommas": false,
+  "spacesBeforeEndOfLineComments": 1,
+  "rules": {
+    "FileScopedDeclarationPrivacy": false,
+    "GroupNumericLiterals": false,
+    "NoAccessLevelOnExtensionDeclaration": false,
+    "OmitExplicitReturns": false,
+    "UseSynthesizedInitializer": false
+  }
+}

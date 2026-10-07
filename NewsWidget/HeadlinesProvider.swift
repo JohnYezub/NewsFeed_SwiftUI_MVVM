@@ -19,11 +19,14 @@ nonisolated struct HeadlinesEntry: TimelineEntry {
 
     static let placeholder = HeadlinesEntry(
         date: .now,
-        featured: Article(source: Article.Source(name: "News source"),
-                          title: "Today's top story appears here",
-                          description: "A short summary of the story.",
-                          url: URL(string: "https://newsapi.org")!,
-                          publishedAt: .now),
+        featured: Article(
+            source: Article.Source(name: "News source"),
+            title: "Today's top story appears here",
+            description: "A short summary of the story.",
+            // The placeholder uses a valid, fixed HTTPS URL literal.
+            // swiftlint:disable:next force_unwrapping
+            url: URL(string: "https://newsapi.org")!,
+            publishedAt: .now),
         upNext: [],
         thumbnail: nil)
 
@@ -63,10 +66,11 @@ nonisolated struct HeadlinesProvider: AppIntentTimelineProvider {
 
         let thumbnails = await Self.thumbnails(for: plan.items.map(\.article), family: context.family)
         let entries = plan.items.map { item in
-            HeadlinesEntry(date: item.date,
-                           featured: item.article,
-                           upNext: item.upNext,
-                           thumbnail: thumbnails[item.article.id])
+            HeadlinesEntry(
+                date: item.date,
+                featured: item.article,
+                upNext: item.upNext,
+                thumbnail: thumbnails[item.article.id])
         }
         return Timeline(entries: entries, policy: policy)
     }

@@ -59,10 +59,12 @@ struct NewsRepositoryTests {
     private let second = [Article.fixture("C")]
 
     @Test func normalizesHeadlines() async throws {
-        let raw = [Article.fixture("A", url: "https://example.com/1"),
-                   Article.fixture("[Removed]", url: "https://removed.com"),
-                   Article.fixture("A again", url: "https://example.com/1"),
-                   Article.fixture("B", url: "https://example.com/2")]
+        let raw = [
+            Article.fixture("A", url: "https://example.com/1"),
+            Article.fixture("[Removed]", url: "https://removed.com"),
+            Article.fixture("A again", url: "https://example.com/1"),
+            Article.fixture("B", url: "https://example.com/2")
+        ]
         let repository = NewsRepository(client: MockClient(.success(raw)))
 
         let articles = try await repository.topHeadlines()

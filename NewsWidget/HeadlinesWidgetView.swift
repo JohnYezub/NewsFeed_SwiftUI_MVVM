@@ -235,7 +235,9 @@ private struct LargeHeadlines: View {
 #Preview("Large", as: .systemLarge) {
     HeadlinesWidget()
 } timeline: {
-    HeadlinesEntry(date: .now, featured: HeadlinesEntry.placeholder.featured, upNext: [HeadlinesEntry.placeholder.featured!], thumbnail: nil)
+    HeadlinesEntry(
+        date: .now, featured: HeadlinesEntry.placeholder.featured,
+        upNext: [HeadlinesEntry.placeholder.featured].compactMap { $0 }, thumbnail: nil)
 }
 
 #Preview("Lock Screen", as: .accessoryRectangular) {

@@ -33,8 +33,10 @@ final class NewsListViewModel {
 
     /// - Parameter headlinesDidChange: Called when newer headlines arrive; by default asks WidgetKit
     ///   to redraw the widget from the shared cache so it shows the same stories as the app.
-    init(provider: any HeadlinesProviding = NewsRepository.shared,
-         headlinesDidChange: @escaping () -> Void = { WidgetCenter.shared.reloadTimelines(ofKind: WidgetKind.headlines) }) {
+    init(
+        provider: any HeadlinesProviding = NewsRepository.shared,
+        headlinesDidChange: @escaping () -> Void = { WidgetCenter.shared.reloadTimelines(ofKind: WidgetKind.headlines) }
+    ) {
         self.provider = provider
         self.headlinesDidChange = headlinesDidChange
     }

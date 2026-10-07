@@ -22,12 +22,17 @@ nonisolated final class StubURLProtocol: URLProtocol {
     }
 
     static func response(status: Int = 200, for request: URLRequest) -> HTTPURLResponse {
-        HTTPURLResponse(url: request.url!, statusCode: status, httpVersion: nil, headerFields: nil)!
+        guard let url = request.url,
+            let response = HTTPURLResponse(url: url, statusCode: status, httpVersion: nil, headerFields: nil)
+        else {
+            preconditionFailure("Invalid stub HTTP response")
+        }
+        return response
     }
 
-    override class func canInit(with request: URLRequest) -> Bool { true }
+    override static func canInit(with request: URLRequest) -> Bool { true }
 
-    override class func canonicalRequest(for request: URLRequest) -> URLRequest { request }
+    override static func canonicalRequest(for request: URLRequest) -> URLRequest { request }
 
     override func startLoading() {
         guard let handler = Self.handler.withLock({ $0 }) else {

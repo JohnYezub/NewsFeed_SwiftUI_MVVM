@@ -31,13 +31,15 @@ public struct Article: Hashable, Identifiable, Sendable {
 
     public var id: URL { url }
 
-    public init(source: Source,
-                author: String? = nil,
-                title: String,
-                description: String? = nil,
-                url: URL,
-                urlToImage: URL? = nil,
-                publishedAt: Date? = nil) {
+    public init(
+        source: Source,
+        author: String? = nil,
+        title: String,
+        description: String? = nil,
+        url: URL,
+        urlToImage: URL? = nil,
+        publishedAt: Date? = nil
+    ) {
         self.source = source
         self.author = author
         self.title = title
@@ -70,7 +72,9 @@ extension Article: Codable {
 
         author = try container.decodeIfPresent(String.self, forKey: .author)
         description = try container.decodeIfPresent(String.self, forKey: .description)
-        urlToImage = try container.decodeIfPresent(String.self, forKey: .urlToImage).flatMap { URL(string: $0) }.flatMap { $0.isWebLink ? $0 : nil }
+        urlToImage = try container.decodeIfPresent(String.self, forKey: .urlToImage).flatMap { URL(string: $0) }.flatMap {
+            $0.isWebLink ? $0 : nil
+        }
         publishedAt = try container.decodeIfPresent(String.self, forKey: .publishedAt).flatMap(Self.parseDate)
     }
 
@@ -83,8 +87,9 @@ extension Article: Codable {
         try container.encodeIfPresent(description, forKey: .description)
         try container.encode(url.absoluteString, forKey: .url)
         try container.encodeIfPresent(urlToImage?.absoluteString, forKey: .urlToImage)
-        try container.encodeIfPresent(publishedAt?.formatted(Date.ISO8601FormatStyle(includingFractionalSeconds: true)),
-                                      forKey: .publishedAt)
+        try container.encodeIfPresent(
+            publishedAt?.formatted(Date.ISO8601FormatStyle(includingFractionalSeconds: true)),
+            forKey: .publishedAt)
     }
 
     /// newsapi.org sends ISO 8601 dates, sometimes with fractional seconds.

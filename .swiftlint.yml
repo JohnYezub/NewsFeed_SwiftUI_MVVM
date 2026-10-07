@@ -1,0 +1,38 @@
+included:
+  - NewsFeed
+  - NewsWidget
+  - NewsFeedWatch
+  - NewsFeedWatchWidget
+  - NewsFeedTests
+  - Packages/NewsKit/Sources
+  - Packages/NewsKit/Tests
+
+excluded:
+  - "**/.build"
+  - DerivedData
+  - "**/DerivedData"
+
+opt_in_rules:
+  - empty_count
+  - first_where
+  - sorted_first_last
+  - contains_over_filter_count
+  - redundant_nil_coalescing
+  - force_unwrapping
+
+disabled_rules:
+  # Keep explicit returns where they help explain control flow.
+  - implicit_return
+
+line_length:
+  warning: 140
+  ignores_comments: true
+  ignores_urls: true
+
+force_unwrapping:
+  severity: warning
+
+# Preserve namespaced models such as HeadlineSchedule.Plan.Item.
+nesting:
+  type_level:
+    warning: 2

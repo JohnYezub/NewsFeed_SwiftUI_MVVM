@@ -23,7 +23,8 @@ public struct NewsAPIConfiguration: Sendable {
 
     public init?(apiKey: String?, country: String = "us") {
         guard let apiKey = apiKey?.trimmingCharacters(in: .whitespacesAndNewlines),
-              !apiKey.isEmpty else { return nil }
+            !apiKey.isEmpty
+        else { return nil }
         self.apiKey = apiKey
         self.country = country
     }
@@ -43,7 +44,8 @@ public struct NewsAPIConfiguration: Sendable {
         components.host = "newsapi.org"
         components.path = "/v2/top-headlines"
         components.queryItems = [URLQueryItem(name: "country", value: country)]
-        // Scheme, host and path are valid literals, so the URL is always constructible.
+        // Scheme, host and path are valid literals; URLQueryItem percent-encodes the country.
+        // swiftlint:disable:next force_unwrapping
         return components.url!
     }
 

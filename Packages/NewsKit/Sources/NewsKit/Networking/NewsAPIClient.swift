@@ -25,7 +25,11 @@ public struct LiveNewsAPIClient: NewsAPIClient {
 
     public func topHeadlines() async throws(NewsAPIError) -> [Article] {
         guard let configuration else {
-            Self.logger.error("NewsAPI key is missing: get your own key at https://newsapi.org/register, copy Config/Secrets.example.xcconfig to Config/Secrets.xcconfig and set NEWS_API_KEY = <your key>")
+            Self.logger.error(
+                """
+                NewsAPI key is missing: get your own key at https://newsapi.org/register, \
+                copy Config/Secrets.example.xcconfig to Config/Secrets.xcconfig and set NEWS_API_KEY = <your key>
+                """)
             throw .missingAPIKey
         }
 

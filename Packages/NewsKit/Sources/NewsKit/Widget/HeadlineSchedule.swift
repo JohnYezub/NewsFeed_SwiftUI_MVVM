@@ -53,9 +53,10 @@ public enum HeadlineSchedule {
         let isFresh = fresh?.isEmpty == false
         let articles = isFresh ? fresh ?? [] : lastKnown ?? []
         let items = slots(for: articles, startingAt: now).map { slot in
-            Plan.Item(date: slot.date,
-                      article: slot.article,
-                      upNext: Array(articles.dropFirst(slot.index + 1).prefix(upNextCount)))
+            Plan.Item(
+                date: slot.date,
+                article: slot.article,
+                upNext: Array(articles.dropFirst(slot.index + 1).prefix(upNextCount)))
         }
         return Plan(items: items, reloadDate: isFresh ? nil : retryDate(after: now))
     }

@@ -14,18 +14,19 @@ struct ArticleDecodingTests {
     }
 
     @Test func decodesAllFields() throws {
-        let articles = try decode("""
-        { "status": "ok", "totalResults": 1, "articles": [ {
-            "source": { "id": "cnn", "name": "CNN" },
-            "author": "Jane Doe",
-            "title": "Title",
-            "description": "Description",
-            "url": "https://example.com/1",
-            "urlToImage": "https://example.com/1.jpg",
-            "publishedAt": "2020-11-11T21:04:00Z",
-            "content": "Body"
-        } ] }
-        """)
+        let articles = try decode(
+            """
+            { "status": "ok", "totalResults": 1, "articles": [ {
+                "source": { "id": "cnn", "name": "CNN" },
+                "author": "Jane Doe",
+                "title": "Title",
+                "description": "Description",
+                "url": "https://example.com/1",
+                "urlToImage": "https://example.com/1.jpg",
+                "publishedAt": "2020-11-11T21:04:00Z",
+                "content": "Body"
+            } ] }
+            """)
 
         let article = try #require(articles.first)
         #expect(article.source == Article.Source(id: "cnn", name: "CNN"))
@@ -39,13 +40,14 @@ struct ArticleDecodingTests {
     }
 
     @Test func optionalFieldsMayBeNullOrMissing() throws {
-        let articles = try decode("""
-        { "articles": [
-            { "source": { "id": null, "name": "Reuters" }, "author": null, "title": "A", "description": null,
-              "url": "https://example.com/a", "urlToImage": null, "publishedAt": null },
-            { "source": { "name": "Reuters" }, "title": "B", "url": "https://example.com/b" }
-        ] }
-        """)
+        let articles = try decode(
+            """
+            { "articles": [
+                { "source": { "id": null, "name": "Reuters" }, "author": null, "title": "A", "description": null,
+                  "url": "https://example.com/a", "urlToImage": null, "publishedAt": null },
+                { "source": { "name": "Reuters" }, "title": "B", "url": "https://example.com/b" }
+            ] }
+            """)
 
         #expect(articles.map(\.title) == ["A", "B"])
         #expect(articles.allSatisfy { $0.source.id == nil && $0.author == nil && $0.description == nil })
@@ -53,19 +55,21 @@ struct ArticleDecodingTests {
     }
 
     @Test func parsesFractionalSeconds() throws {
-        let articles = try decode("""
-        { "articles": [ { "source": { "name": "CNN" }, "title": "A", "url": "https://example.com/a",
-                          "publishedAt": "2020-11-11T21:04:00.250Z" } ] }
-        """)
+        let articles = try decode(
+            """
+            { "articles": [ { "source": { "name": "CNN" }, "title": "A", "url": "https://example.com/a",
+                              "publishedAt": "2020-11-11T21:04:00.250Z" } ] }
+            """)
 
         #expect(articles.first?.publishedAt == novemberEleventh2020.addingTimeInterval(0.25))
     }
 
     @Test func malformedOptionalFieldsBecomeNil() throws {
-        let articles = try decode("""
-        { "articles": [ { "source": { "name": "CNN" }, "title": "A", "url": "https://example.com/a",
-                          "urlToImage": "data:image/png;base64,AAAA", "publishedAt": "yesterday" } ] }
-        """)
+        let articles = try decode(
+            """
+            { "articles": [ { "source": { "name": "CNN" }, "title": "A", "url": "https://example.com/a",
+                              "urlToImage": "data:image/png;base64,AAAA", "publishedAt": "yesterday" } ] }
+            """)
 
         let article = try #require(articles.first)
         #expect(article.urlToImage == nil)
@@ -73,27 +77,29 @@ struct ArticleDecodingTests {
     }
 
     @Test func skipsArticlesMissingRequiredFieldsAndKeepsTheRestInOrder() throws {
-        let articles = try decode("""
-        { "articles": [
-            { "source": { "name": "CNN" }, "title": "First", "url": "https://example.com/1" },
-            { "source": { "name": "CNN" }, "url": "https://example.com/no-title" },
-            { "source": { "name": "CNN" }, "title": "No URL" },
-            { "source": { "name": "CNN" }, "title": "Bad URL", "url": "" },
-            { "source": { "name": "CNN" }, "title": "No scheme", "url": "www.example.com/story" },
-            { "source": { "name": "CNN" }, "title": "Not a web link", "url": "ftp://example.com/story" },
-            { "source": { "name": "CNN" }, "title": "No host", "url": "https:///story" },
-            { "title": "No source", "url": "https://example.com/no-source" },
-            { "source": { "name": "CNN" }, "title": "Last", "url": "https://example.com/2" }
-        ] }
-        """)
+        let articles = try decode(
+            """
+            { "articles": [
+                { "source": { "name": "CNN" }, "title": "First", "url": "https://example.com/1" },
+                { "source": { "name": "CNN" }, "url": "https://example.com/no-title" },
+                { "source": { "name": "CNN" }, "title": "No URL" },
+                { "source": { "name": "CNN" }, "title": "Bad URL", "url": "" },
+                { "source": { "name": "CNN" }, "title": "No scheme", "url": "www.example.com/story" },
+                { "source": { "name": "CNN" }, "title": "Not a web link", "url": "ftp://example.com/story" },
+                { "source": { "name": "CNN" }, "title": "No host", "url": "https:///story" },
+                { "title": "No source", "url": "https://example.com/no-source" },
+                { "source": { "name": "CNN" }, "title": "Last", "url": "https://example.com/2" }
+            ] }
+            """)
 
         #expect(articles.map(\.title) == ["First", "Last"])
     }
 
     @Test func skipsNullAndNonObjectElements() throws {
-        let articles = try decode("""
-        { "articles": [ null, 42, "text", [], { "source": { "name": "CNN" }, "title": "Valid", "url": "https://example.com/1" } ] }
-        """)
+        let articles = try decode(
+            """
+            { "articles": [ null, 42, "text", [], { "source": { "name": "CNN" }, "title": "Valid", "url": "https://example.com/1" } ] }
+            """)
 
         #expect(articles.map(\.title) == ["Valid"])
     }

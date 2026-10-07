@@ -18,14 +18,16 @@ public enum DeepLink: Hashable, Sendable {
 
     public init?(url: URL) {
         guard url.scheme?.lowercased() == Self.scheme,
-              let components = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return nil }
+            let components = URLComponents(url: url, resolvingAgainstBaseURL: false)
+        else { return nil }
         switch components.host {
         case "headlines":
             self = .headlines
         case "article":
             guard let value = components.queryItems?.first(where: { $0.name == "url" })?.value,
-                  let articleURL = URL(string: value),
-                  articleURL.isWebLink else { return nil }
+                let articleURL = URL(string: value),
+                articleURL.isWebLink
+            else { return nil }
             self = .article(articleURL)
         default:
             return nil
@@ -43,6 +45,7 @@ public enum DeepLink: Hashable, Sendable {
             components.queryItems = [URLQueryItem(name: "url", value: articleURL.absoluteString)]
         }
         // Scheme and host are fixed literals and query values are percent-encoded, so this cannot fail.
+        // swiftlint:disable:next force_unwrapping
         return components.url!
     }
 }

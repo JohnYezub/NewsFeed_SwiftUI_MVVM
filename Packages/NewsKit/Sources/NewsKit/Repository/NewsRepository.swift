@@ -30,10 +30,12 @@ public actor NewsRepository: HeadlinesProviding {
     /// Callers currently waiting on a request started by someone else.
     private(set) var joinedCallers = 0
 
-    public init(client: any NewsAPIClient,
-                store: any HeadlinesStore = InMemoryHeadlinesStore(),
-                cacheLifetime: TimeInterval = 5 * 60,
-                now: @escaping @Sendable () -> Date = { Date() }) {
+    public init(
+        client: any NewsAPIClient,
+        store: any HeadlinesStore = InMemoryHeadlinesStore(),
+        cacheLifetime: TimeInterval = 5 * 60,
+        now: @escaping @Sendable () -> Date = { Date() }
+    ) {
         self.client = client
         self.store = store
         self.cacheLifetime = cacheLifetime

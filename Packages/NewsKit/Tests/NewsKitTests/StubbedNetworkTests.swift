@@ -17,9 +17,10 @@ extension StubbedNetworkTests {
 
         private let configuration = NewsAPIConfiguration(apiKey: "test-key")
 
-        private let validBody = Data("""
-        { "articles": [ { "source": { "name": "CNN" }, "title": "Title", "url": "https://example.com", "publishedAt": "2020-11-11T21:04:00Z" } ] }
-        """.utf8)
+        private let validBody = Data(
+            """
+            { "articles": [ { "source": { "name": "CNN" }, "title": "Title", "url": "https://example.com", "publishedAt": "2020-11-11T21:04:00Z" } ] }
+            """.utf8)
 
         @Test func loadsArticlesAndSendsKeyInHeader() async throws {
             let body = validBody

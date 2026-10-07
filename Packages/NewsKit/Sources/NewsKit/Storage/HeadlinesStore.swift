@@ -40,7 +40,8 @@ public struct FileHeadlinesStore: HeadlinesStore {
     /// The App Group container, or the process's own Caches directory when the entitlement is missing
     /// (e.g. unsigned simulator builds); the cache then simply isn't shared.
     public static var shared: FileHeadlinesStore {
-        let directory = FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupIdentifier)
+        let directory =
+            FileManager.default.containerURL(forSecurityApplicationGroupIdentifier: appGroupIdentifier)
             ?? URL.cachesDirectory
         return FileHeadlinesStore(fileURL: directory.appending(path: "headlines.json"))
     }

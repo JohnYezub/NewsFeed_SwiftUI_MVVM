@@ -37,8 +37,14 @@ struct NewsListViewModelTests {
 
     /// Holds every call until `open()`, so a test can act while a load is in progress.
     nonisolated final class GatedHeadlines: HeadlinesProviding {
+        private struct GateState {
+            var started = false
+            var isOpen = false
+            var waiters: [CheckedContinuation<Void, Never>] = []
+        }
+
         private let articles: [Article]
-        private let state = Mutex<(started: Bool, isOpen: Bool, waiters: [CheckedContinuation<Void, Never>])>((false, false, []))
+        private let state = Mutex(GateState())
 
         init(_ articles: [Article]) {
             self.articles = articles
@@ -73,7 +79,10 @@ struct NewsListViewModelTests {
     }
 
     nonisolated private static func article(_ title: String) -> Article {
-        Article(source: Article.Source(name: "CNN"), title: title, url: URL(string: "https://example.com/\(title)")!)
+        guard let url = URL(string: "https://example.com/\(title)") else {
+            preconditionFailure("Invalid article fixture URL")
+        }
+        return Article(source: Article.Source(name: "CNN"), title: title, url: url)
     }
 
     nonisolated private static let first = [article("A"), article("B")]
@@ -166,8 +175,9 @@ struct NewsListViewModelTests {
 
     @Test func newHeadlinesAskWidgetToReload() async {
         let reloads = Mutex(0)
-        let viewModel = makeViewModel(MockHeadlines(.success(Self.first), .success(Self.second)),
-                                      headlinesDidChange: { reloads.withLock { $0 += 1 } })
+        let viewModel = makeViewModel(
+            MockHeadlines(.success(Self.first), .success(Self.second)),
+            headlinesDidChange: { reloads.withLock { $0 += 1 } })
 
         await viewModel.load()
         await viewModel.refresh()
@@ -177,8 +187,9 @@ struct NewsListViewModelTests {
 
     @Test func unchangedHeadlinesDoNotReloadWidget() async {
         let reloads = Mutex(0)
-        let viewModel = makeViewModel(MockHeadlines(.success(Self.first), .success(Self.first), .failure(.invalidResponse)),
-                                      headlinesDidChange: { reloads.withLock { $0 += 1 } })
+        let viewModel = makeViewModel(
+            MockHeadlines(.success(Self.first), .success(Self.first), .failure(.invalidResponse)),
+            headlinesDidChange: { reloads.withLock { $0 += 1 } })
 
         await viewModel.load()
         await viewModel.refresh()
@@ -189,8 +200,9 @@ struct NewsListViewModelTests {
 
     @Test func cachedFallbackDoesNotReloadWidget() async {
         let reloads = Mutex(0)
-        let viewModel = makeViewModel(MockHeadlines(.failure(.transport(.timedOut)), lastKnown: Self.first),
-                                      headlinesDidChange: { reloads.withLock { $0 += 1 } })
+        let viewModel = makeViewModel(
+            MockHeadlines(.failure(.transport(.timedOut)), lastKnown: Self.first),
+            headlinesDidChange: { reloads.withLock { $0 += 1 } })
 
         await viewModel.load()
 
@@ -324,11 +336,12 @@ struct NewsListViewModelTests {
     }
 
     @Test(arguments: ["https://example.com", "NewsWidgetURL://link/3", "newsfeed://article"])
-    func ignoresForeignLinks(string: String) async {
+    func ignoresForeignLinks(string: String) async throws {
         let viewModel = makeViewModel(MockHeadlines(.success(Self.first)))
         await viewModel.load()
 
-        #expect(viewModel.handle(URL(string: string)!) == false)
+        let url = try #require(URL(string: string))
+        #expect(viewModel.handle(url) == false)
         #expect(viewModel.path.isEmpty)
         #expect(viewModel.externalArticleURL == nil)
     }

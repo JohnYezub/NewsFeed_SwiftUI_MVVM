@@ -1,0 +1,150 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  lint:
+    runs-on: macos-26
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - name: Select Xcode 26.3
+        run: |
+          sudo xcode-select -s /Applications/Xcode_26.3.app
+          xcodebuild -version
+      - name: Install SwiftLint 0.57.1
+        run: |
+          curl --fail --location --retry 3 \
+            https://github.com/realm/SwiftLint/releases/download/0.57.1/portable_swiftlint.zip \
+            --output "$RUNNER_TEMP/swiftlint.zip"
+          unzip -q "$RUNNER_TEMP/swiftlint.zip" -d "$RUNNER_TEMP/swiftlint"
+          chmod +x "$RUNNER_TEMP/swiftlint/swiftlint"
+          echo "$RUNNER_TEMP/swiftlint" >> "$GITHUB_PATH"
+          "$RUNNER_TEMP/swiftlint/swiftlint" version
+      - name: Lint and check formatting
+        run: scripts/lint.sh
+
+  newskit:
+    runs-on: macos-26
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - name: Select Xcode 26.3
+        run: |
+          sudo xcode-select -s /Applications/Xcode_26.3.app
+          xcodebuild -version
+      - name: Test NewsKit on macOS
+        run: swift test --package-path Packages/NewsKit
+
+  ios:
+    runs-on: macos-26
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - name: Select Xcode 26.3
+        run: |
+          sudo xcode-select -s /Applications/Xcode_26.3.app
+          xcodebuild -version
+      - name: Select first available iPhone on the latest iOS
+        id: simulator
+        run: |
+          xcrun simctl list devices available --json > "$RUNNER_TEMP/devices.json"
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+
+          with open(os.path.join(os.environ["RUNNER_TEMP"], "devices.json")) as file:
+              devices = json.load(file)["devices"]
+          runtimes = []
+          for runtime, entries in devices.items():
+              match = re.fullmatch(r"com\.apple\.CoreSimulator\.SimRuntime\.iOS-(\d+(?:-\d+)*)", runtime)
+              if match:
+                  iphones = [entry for entry in entries if entry.get("isAvailable") and entry["name"].startswith("iPhone")]
+                  if iphones:
+                      runtimes.append((tuple(map(int, match[1].split("-"))), iphones))
+          if not runtimes:
+              raise SystemExit("No available iPhone simulator found")
+          version, iphones = max(runtimes, key=lambda item: item[0])
+          device = iphones[0]
+          print(f"Selected {device['name']} on iOS {'.'.join(map(str, version))}: {device['udid']}")
+          with open(os.environ["GITHUB_OUTPUT"], "a") as file:
+              file.write(f"udid={device['udid']}\n")
+          PY
+      - name: Test iOS app and NewsKit with coverage
+        env:
+          SIMULATOR_UDID: ${{ steps.simulator.outputs.udid }}
+        run: |
+          xcodebuild test \
+            -project NewsFeed.xcodeproj \
+            -scheme NewsFeed \
+            -destination "platform=iOS Simulator,id=$SIMULATOR_UDID" \
+            -resultBundlePath "$RUNNER_TEMP/NewsFeed.xcresult" \
+            CODE_SIGNING_ALLOWED=NO
+      - name: Coverage summary
+        run: |
+          xcrun xccov view --report --only-targets "$RUNNER_TEMP/NewsFeed.xcresult" > "$RUNNER_TEMP/coverage.txt"
+          {
+            echo '### iOS test coverage'
+            echo '```text'
+            cat "$RUNNER_TEMP/coverage.txt"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      - name: Upload failed test results
+        if: failure()
+        uses: actions/upload-artifact@v7
+        with:
+          name: NewsFeed-test-results
+          path: ${{ runner.temp }}/NewsFeed.xcresult
+          if-no-files-found: ignore
+          retention-days: 7
+
+  watch:
+    runs-on: macos-26
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - name: Select Xcode 26.3
+        run: |
+          sudo xcode-select -s /Applications/Xcode_26.3.app
+          xcodebuild -version
+      - name: Build watchOS app and widget
+        run: |
+          xcodebuild build \
+            -project NewsFeed.xcodeproj \
+            -scheme NewsFeedWatch \
+            -destination 'generic/platform=watchOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO
+
+  release-build:
+    runs-on: macos-26
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - name: Select Xcode 26.3
+        run: |
+          sudo xcode-select -s /Applications/Xcode_26.3.app
+          xcodebuild -version
+      - name: Build Release iOS app and widget
+        run: |
+          xcodebuild build \
+            -project NewsFeed.xcodeproj \
+            -scheme NewsFeed \
+            -configuration Release \
+            -destination 'generic/platform=iOS Simulator' \
+            CODE_SIGNING_ALLOWED=NO
