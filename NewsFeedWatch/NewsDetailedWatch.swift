@@ -5,6 +5,7 @@
 //  Created by   admin on 19.11.2020.
 //
 
+import NewsKit
 import SwiftUI
 
 struct NewsDetailedWatch: View {
@@ -28,7 +29,7 @@ struct NewsDetailedWatch: View {
 
 struct NewsDetailedWatch_Previews: PreviewProvider {
     static var previews: some View {
-        let article = Article(source: Source(id: nil, name: "name"), author: nil, title: "Title", description: "description", url: "http://google.com", urlToImage: nil, publishedAt: "14:52")
+        let article = Article(source: Article.Source(name: "name"), title: "Title", description: "description", url: URL(string: "https://example.com")!, publishedAt: .now)
         NewsDetailedWatch(article: ViewModel(article: article))
         
     }

@@ -6,12 +6,13 @@
 //
 
 import Combine
+import NewsKit
 import SwiftUI
 
 final class ListViewModel: ObservableObject {
     
     typealias LoadArticles = @Sendable () async -> [Article]?
-    typealias LoadImage = @Sendable (String) async -> UIImage?
+    typealias LoadImage = @Sendable (URL) async -> UIImage?
     
     @Published var articles = [ViewModel]()
     
@@ -20,8 +21,8 @@ final class ListViewModel: ObservableObject {
     private let loadImage: LoadImage?
     
     init(autoload: Bool = true,
-         loadArticles: @escaping LoadArticles = { await NetworkService.loadArticles() },
-         loadImage: LoadImage? = { await ImageStore.image(from: $0) }) {
+         loadArticles: @escaping LoadArticles = { try? await NewsRepository.shared.topHeadlines() },
+         loadImage: LoadImage? = { await ImageLoader.image(at: $0) }) {
         self.loadArticles = loadArticles
         self.loadImage = loadImage
         if autoload {

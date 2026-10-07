@@ -4,6 +4,7 @@
 //
 
 import Foundation
+import NewsKit
 import Synchronization
 import Testing
 import UIKit
@@ -12,8 +13,8 @@ import UIKit
 struct ListViewModelTests {
 
     nonisolated private static func article(_ title: String, image: String?) -> Article {
-        Article(source: Source(id: nil, name: "CNN"), author: nil, title: title, description: nil,
-                url: "https://example.com/\(title)", urlToImage: image, publishedAt: "2020-11-11T21:04:00Z")
+        Article(source: Article.Source(name: "CNN"), title: title,
+                url: URL(string: "https://example.com/\(title)")!, urlToImage: image.flatMap { URL(string: $0) })
     }
 
     nonisolated private static let articles = [
@@ -47,17 +48,17 @@ struct ListViewModelTests {
     }
 
     @Test func attachesImagesToTheirRowsAndSkipsArticlesWithoutImage() async {
-        let requested = Mutex<[String]>([])
+        let requested = Mutex<[URL]>([])
         let viewModel = ListViewModel(autoload: false,
                                       loadArticles: { Self.articles },
                                       loadImage: { url in
                                           requested.withLock { $0.append(url) }
-                                          return url.hasSuffix("a.png") ? UIImage(systemName: "a.circle") : nil
+                                          return url.lastPathComponent == "a.png" ? UIImage(systemName: "a.circle") : nil
                                       })
 
         await viewModel.fetchData()
 
-        #expect(requested.withLock { $0 } == ["https://example.com/a.png", "https://example.com/c.png"])
+        #expect(requested.withLock { $0 }.map(\.absoluteString) == ["https://example.com/a.png", "https://example.com/c.png"])
         #expect(viewModel.articles.map { $0.image != nil } == [true, false, false])
     }
 }

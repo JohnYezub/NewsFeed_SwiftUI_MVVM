@@ -35,7 +35,19 @@ The app needs a [newsapi.org](https://newsapi.org) API key. **Please use your ow
 
 How it works: `Secrets.xcconfig` → build setting `NEWS_API_KEY` → Info.plist `NewsAPIKey` (app, widget and watch extension) → `NewsAPIConfiguration`, which sends it in the `X-Api-Key` header.
 
+### Project structure:
+* `Packages/NewsKit` — local Swift package shared by every target: `Article` model, `LiveNewsAPIClient` (async/await, typed `NewsAPIError`), `NewsRepository` (in-memory cache, request coalescing, de-duplication), date formatting, `ImageLoader` and the widget's `HeadlineSchedule`.
+* `NewsFeed` — iOS app (SwiftUI, MVVM).
+* `NewsWidget` — WidgetKit extension.
+* `NewsFeedWatch` — standalone SwiftUI watchOS app.
+* `NewsFeedTests` — app tests; `Packages/NewsKit/Tests` — package tests (Swift Testing).
+
 ### Tests:
+All tests (app + NewsKit) via the `NewsFeed` scheme and its test plan:
 ```bash
 xcodebuild test -project NewsFeed.xcodeproj -scheme NewsFeed -destination 'platform=iOS Simulator,name=iPhone 17'
+```
+NewsKit only, on macOS in about a second:
+```bash
+swift test --package-path Packages/NewsKit
 ```

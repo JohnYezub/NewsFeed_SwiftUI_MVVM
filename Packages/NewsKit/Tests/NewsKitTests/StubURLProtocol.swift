@@ -1,6 +1,6 @@
 //
 //  StubURLProtocol.swift
-//  NewsFeedTests
+//  NewsKitTests
 //
 
 import Foundation

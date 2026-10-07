@@ -22,3 +22,7 @@ xcuserdata/
 
 # Local secrets (see Config/Secrets.example.xcconfig)
 Config/Secrets.xcconfig
+
+# SwiftPM build output
+.build/
+.swiftpm/

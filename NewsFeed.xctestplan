@@ -1,0 +1,31 @@
+{
+  "configurations" : [
+    {
+      "id" : "6D8E6A5C-2F0B-4C1E-9C55-2B0D7E3B9A41",
+      "name" : "Default",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:NewsFeed.xcodeproj",
+        "identifier" : "1829EBB28B8571BDF8D8689B",
+        "name" : "NewsFeedTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Packages\/NewsKit",
+        "identifier" : "NewsKitTests",
+        "name" : "NewsKitTests"
+      }
+    }
+  ],
+  "version" : 1
+}

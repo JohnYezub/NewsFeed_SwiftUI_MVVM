@@ -4,51 +4,51 @@
 //
 
 import Foundation
+import NewsKit
 import Testing
 @testable import NewsFeed
 
 struct ViewModelTests {
 
     private func makeArticle(description: String? = "Description",
-                             urlToImage: String? = "https://example.com/1.jpg",
-                             publishedAt: String = "2020-11-11T21:04:00Z") -> Article {
-        Article(source: Source(id: "cnn", name: "CNN"),
+                             publishedAt: Date? = Date(timeIntervalSince1970: 1_605_128_640)) -> Article {
+        Article(source: Article.Source(id: "cnn", name: "CNN"),
                 author: "Jane Doe",
                 title: "Title",
                 description: description,
-                url: "https://example.com/1",
-                urlToImage: urlToImage,
+                url: URL(string: "https://example.com/1")!,
+                urlToImage: URL(string: "https://example.com/1.jpg"),
                 publishedAt: publishedAt)
     }
 
     @Test func exposesArticleFields() {
         let viewModel = ViewModel(article: makeArticle())
 
+        #expect(viewModel.id == URL(string: "https://example.com/1"))
         #expect(viewModel.title == "Title")
         #expect(viewModel.description == "Description")
         #expect(viewModel.sourceName == "CNN")
-        #expect(viewModel.urlWeb == "https://example.com/1")
-        #expect(viewModel.urlToImage == "https://example.com/1.jpg")
+        #expect(viewModel.urlWeb == URL(string: "https://example.com/1"))
+        #expect(viewModel.urlToImage == URL(string: "https://example.com/1.jpg"))
         #expect(viewModel.image == nil)
+    }
+
+    @Test func idIsStableAcrossReloads() {
+        #expect(ViewModel(article: makeArticle()).id == ViewModel(article: makeArticle()).id)
     }
 
     @Test func missingDescriptionBecomesEmptyString() {
         #expect(ViewModel(article: makeArticle(description: nil)).description == "")
     }
 
-    @Test func formatsPublicationDateAsMediumDateShortTimeInUTC() {
-        // 2020-11-11T21:04:00Z
-        let date = Date(timeIntervalSince1970: 1_605_128_640)
-        let expected = DateFormatter()
-        expected.timeZone = TimeZone(identifier: "UTC")
-        expected.dateStyle = .medium
-        expected.timeStyle = .short
+    @Test func showsPublicationDateInLocalTime() throws {
+        let article = makeArticle()
+        let expected = try #require(article.formattedPublicationDate())
 
-        #expect(ViewModel(article: makeArticle()).publishedAt == expected.string(from: date))
+        #expect(ViewModel(article: article).publishedAt == expected)
     }
 
-    @Test(arguments: ["", "14:52", "2020-11-11"])
-    func unparsableDateBecomesEmptyString(publishedAt: String) {
-        #expect(ViewModel(article: makeArticle(publishedAt: publishedAt)).publishedAt == "")
+    @Test func unknownPublicationDateBecomesEmptyString() {
+        #expect(ViewModel(article: makeArticle(publishedAt: nil)).publishedAt == "")
     }
 }

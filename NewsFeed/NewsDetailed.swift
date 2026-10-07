@@ -5,6 +5,7 @@
 //  Created by   admin on 17.11.2020.
 //
 
+import NewsKit
 import SwiftUI
 
 struct NewsDetailed: View {
@@ -40,10 +41,8 @@ struct NewsDetailed: View {
                 .padding(.top)
                 
                 
-                if let URL = URL(string: article.urlWeb) {
-                    Link("Read more...", destination: URL)
-                        .padding(.top)
-                }
+                Link("Read more...", destination: article.urlWeb)
+                    .padding(.top)
                 Spacer()
             }
             .padding()            
@@ -54,7 +53,7 @@ struct NewsDetailed: View {
 
 struct NewsDetailed_Previews: PreviewProvider {
     static var previews: some View {
-        let article = Article(source: Source(id: nil, name: "name"), author: nil, title: "Title", description: "description", url: "http://google.com", urlToImage: nil, publishedAt: "14:52")
+        let article = Article(source: Article.Source(name: "name"), title: "Title", description: "description", url: URL(string: "https://example.com")!, publishedAt: .now)
         NewsDetailed(article: ViewModel(article: article))
         
     }

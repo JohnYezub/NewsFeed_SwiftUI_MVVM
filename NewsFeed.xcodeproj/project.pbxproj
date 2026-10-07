@@ -11,6 +11,9 @@
 		84B989992566556700257DE5 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B989982566556700257DE5 /* SwiftUI.framework */; };
 		84B989A22566556A00257DE5 /* NewsWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 84B989942566556700257DE5 /* NewsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84B989F6256694A400257DE5 /* NewsFeedWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 84B989D02566949E00257DE5 /* NewsFeedWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		ACD80081D849D59DB7013483 /* NewsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7FC19AC4E076DF1D16F68CA7 /* NewsKit */; };
+		CCB3F97979E809B257B6169C /* NewsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 82B3AA9B657864DBC06D9011 /* NewsKit */; };
+		AE33BBD95A22DC282895BF14 /* NewsKit in Frameworks */ = {isa = PBXBuildFile; productRef = E59B5F9C07919AE343E6125E /* NewsKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +72,7 @@
 		84B989D02566949E00257DE5 /* NewsFeedWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsFeedWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D44E102563F493009CA9DA /* NewsFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42AB4C958FA97A19F50466AF /* NewsFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DB240FB4561DD407D81B38F0 /* NewsKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = NewsKit; path = Packages/NewsKit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -79,21 +83,9 @@
 			);
 			target = 84D44E0F2563F493009CA9DA /* NewsFeed */;
 		};
-		20AFE3EDA8401A11422878C3 /* Exceptions for "NewsFeed" folder in "NewsWidgetExtension" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Data/JSONModel.swift",
-				"Data/NetworkService.swift",
-				"Data/NewsAPIConfiguration.swift",
-			);
-			target = 84B989932566556700257DE5 /* NewsWidgetExtension */;
-		};
 		F521FA4207345E3CD5ECDA47 /* Exceptions for "NewsFeed" folder in "NewsFeedWatch" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				"Data/JSONModel.swift",
-				"Data/NetworkService.swift",
-				"Data/NewsAPIConfiguration.swift",
 				"View/ListViewModel.swift",
 				"View/ViewModel.swift",
 			);
@@ -125,7 +117,6 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				CA92E5B4B1A9CA68212035A1 /* Exceptions for "NewsFeed" folder in "NewsFeed" target */,
-				20AFE3EDA8401A11422878C3 /* Exceptions for "NewsFeed" folder in "NewsWidgetExtension" target */,
 				F521FA4207345E3CD5ECDA47 /* Exceptions for "NewsFeed" folder in "NewsFeedWatch" target */,
 			);
 			path = NewsFeed;
@@ -159,6 +150,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCB3F97979E809B257B6169C /* NewsKit in Frameworks */,
 				84B989992566556700257DE5 /* SwiftUI.framework in Frameworks */,
 				84B989972566556700257DE5 /* WidgetKit.framework in Frameworks */,
 			);
@@ -168,6 +160,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AE33BBD95A22DC282895BF14 /* NewsKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -175,6 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ACD80081D849D59DB7013483 /* NewsKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +195,7 @@
 			isa = PBXGroup;
 			children = (
 				BE4BB29BCC6BD40E1CBB7ABF /* Config */,
+				DB240FB4561DD407D81B38F0 /* NewsKit */,
 				C93AB4410C49BD59AB6FAF22 /* NewsFeed */,
 				F9373EDA084A472CDA6B8011 /* NewsFeedTests */,
 				E797C574CC8A7D5137D4409D /* NewsWidget */,
@@ -241,6 +236,7 @@
 			);
 			name = NewsWidgetExtension;
 			packageProductDependencies = (
+				82B3AA9B657864DBC06D9011 /* NewsKit */,
 			);
 			productName = NewsWidgetExtension;
 			productReference = 84B989942566556700257DE5 /* NewsWidgetExtension.appex */;
@@ -263,6 +259,7 @@
 			);
 			name = NewsFeedWatch;
 			packageProductDependencies = (
+				E59B5F9C07919AE343E6125E /* NewsKit */,
 			);
 			productName = NewsFeedWatch;
 			productReference = 84B989D02566949E00257DE5 /* NewsFeedWatch.app */;
@@ -289,6 +286,7 @@
 			);
 			name = NewsFeed;
 			packageProductDependencies = (
+				7FC19AC4E076DF1D16F68CA7 /* NewsKit */,
 			);
 			productName = NewsFeed;
 			productReference = 84D44E102563F493009CA9DA /* NewsFeed.app */;
@@ -351,6 +349,9 @@
 			);
 			mainGroup = 84D44E072563F493009CA9DA;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				21AAABBDAD35991339FF803E /* XCLocalSwiftPackageReference "Packages/NewsKit" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 84D44E112563F493009CA9DA /* Products */;
 			projectDirPath = "";
@@ -811,6 +812,28 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		21AAABBDAD35991339FF803E /* XCLocalSwiftPackageReference "Packages/NewsKit" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = Packages/NewsKit;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		7FC19AC4E076DF1D16F68CA7 /* NewsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NewsKit;
+		};
+		82B3AA9B657864DBC06D9011 /* NewsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NewsKit;
+		};
+		E59B5F9C07919AE343E6125E /* NewsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NewsKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 84D44E082563F493009CA9DA /* Project object */;
 }

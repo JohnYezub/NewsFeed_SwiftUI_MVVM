@@ -5,11 +5,10 @@
 //  Created by   admin on 17.11.2020.
 //
 
+import NewsKit
 import SwiftUI
 
 struct ViewModel: Identifiable {
-    
-    let id = UUID()
     
     let article: Article
     
@@ -17,43 +16,35 @@ struct ViewModel: Identifiable {
         self.article = article
     }
     
+    /// Stable across reloads: the article URL.
+    var id: Article.ID {
+        article.id
+    }
+    
     var title: String {
-        return self.article.title
+        article.title
     }
     
     var description: String {
-        return self.article.description ?? ""
+        article.description ?? ""
     }
     
     var sourceName: String {
-        return self.article.source.name
-    }
-    var urlToImage: String? {
-        return self.article.urlToImage
+        article.source.name
     }
     
-    var urlWeb: String {
-        return self.article.url
+    var urlToImage: URL? {
+        article.urlToImage
+    }
+    
+    var urlWeb: URL {
+        article.url
     }
     
     var image: UIImage?
     
+    /// Local date and time, or an empty string if the API sent no usable date.
     var publishedAt: String {
-        //2020-11-11T21:04:00Z
-        let df = DateFormatter()
-        // Fixed-format parsing must not depend on the user's calendar or 12/24-hour setting.
-        df.locale = Locale(identifier: "en_US_POSIX")
-        df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
-        df.timeZone = TimeZone(abbreviation: "UTC")
-        
-        if let date = df.date(from: self.article.publishedAt) {
-            df.locale = .current
-            df.dateStyle = .medium
-            df.timeStyle = .short
-            return df.string(from: date)
-        } else {
-            return ""
-        }
+        article.formattedPublicationDate() ?? ""
     }
 }
-
