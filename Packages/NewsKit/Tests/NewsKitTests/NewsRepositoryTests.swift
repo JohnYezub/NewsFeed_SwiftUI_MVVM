@@ -147,6 +147,113 @@ struct NewsRepositoryTests {
         #expect(client.calls == 2)
     }
 
+    // MARK: - Store
+
+    @Test func savesDownloadedHeadlinesToStore() async throws {
+        let store = InMemoryHeadlinesStore()
+        let clock = Clock()
+        let repository = NewsRepository(client: MockClient(.success(first)), store: store, now: { clock.now })
+
+        _ = try await repository.topHeadlines()
+
+        #expect(await store.load() == HeadlinesSnapshot(articles: first, fetchedAt: clock.now))
+    }
+
+    @Test func servesFreshHeadlinesFromStoreWithoutNetwork() async throws {
+        let clock = Clock()
+        let store = InMemoryHeadlinesStore(HeadlinesSnapshot(articles: first, fetchedAt: clock.now.addingTimeInterval(-30)))
+        let client = MockClient(.success(second))
+        let repository = NewsRepository(client: client, store: store, cacheLifetime: 60, now: { clock.now })
+
+        let articles = try await repository.topHeadlines()
+
+        #expect(articles == first)
+        #expect(client.calls == 0)
+    }
+
+    @Test func staleStoreIsRefreshedFromNetwork() async throws {
+        let clock = Clock()
+        let store = InMemoryHeadlinesStore(HeadlinesSnapshot(articles: first, fetchedAt: clock.now.addingTimeInterval(-61)))
+        let client = MockClient(.success(second))
+        let repository = NewsRepository(client: client, store: store, cacheLifetime: 60, now: { clock.now })
+
+        let articles = try await repository.topHeadlines()
+
+        #expect(articles == second)
+        #expect(client.calls == 1)
+    }
+
+    @Test func forceRefreshIgnoresFreshStore() async throws {
+        let clock = Clock()
+        let store = InMemoryHeadlinesStore(HeadlinesSnapshot(articles: first, fetchedAt: clock.now))
+        let client = MockClient(.success(second))
+        let repository = NewsRepository(client: client, store: store, now: { clock.now })
+
+        let articles = try await repository.topHeadlines(forceRefresh: true)
+
+        #expect(articles == second)
+        #expect(client.calls == 1)
+    }
+
+    @Test func failureKeepsStoredHeadlines() async {
+        let clock = Clock()
+        let stored = HeadlinesSnapshot(articles: first, fetchedAt: clock.now.addingTimeInterval(-3600))
+        let store = InMemoryHeadlinesStore(stored)
+        let repository = NewsRepository(client: MockClient(.failure(.transport(.notConnectedToInternet))), store: store, now: { clock.now })
+
+        await #expect(throws: NewsAPIError.transport(.notConnectedToInternet)) {
+            try await repository.topHeadlines()
+        }
+
+        #expect(await store.load() == stored)
+    }
+
+    @Test func lastKnownHeadlinesReturnsStaleStoreAfterFailure() async {
+        let clock = Clock()
+        let store = InMemoryHeadlinesStore(HeadlinesSnapshot(articles: first, fetchedAt: clock.now.addingTimeInterval(-86_400)))
+        let repository = NewsRepository(client: MockClient(.failure(.invalidResponse)), store: store, now: { clock.now })
+
+        _ = try? await repository.topHeadlines()
+
+        #expect(await repository.lastKnownHeadlines() == first)
+    }
+
+    @Test func lastKnownHeadlinesPrefersNewestSource() async throws {
+        let clock = Clock()
+        let store = InMemoryHeadlinesStore()
+        let repository = NewsRepository(client: MockClient(.success(first)), store: store, now: { clock.now })
+        _ = try await repository.topHeadlines()
+
+        // Another process wrote newer headlines in the meantime.
+        await store.save(HeadlinesSnapshot(articles: second, fetchedAt: clock.now.addingTimeInterval(10)))
+
+        #expect(await repository.lastKnownHeadlines() == second)
+    }
+
+    @Test func lastKnownHeadlinesIsNilWithoutAnyData() async {
+        let repository = NewsRepository(client: MockClient())
+
+        #expect(await repository.lastKnownHeadlines() == nil)
+    }
+
+    @Test func appAndWidgetShareHeadlinesThroughFileStore() async throws {
+        let directory = URL.temporaryDirectory.appending(path: "SharedStore-\(UUID().uuidString)")
+        defer { try? FileManager.default.removeItem(at: directory) }
+        let fileURL = directory.appending(path: "headlines.json")
+        let appClient = MockClient(.success(first))
+        let widgetClient = MockClient(.success(second))
+        let app = NewsRepository(client: appClient, store: FileHeadlinesStore(fileURL: fileURL))
+        let widget = NewsRepository(client: widgetClient, store: FileHeadlinesStore(fileURL: fileURL))
+
+        let appArticles = try await app.topHeadlines()
+        let widgetArticles = try await widget.topHeadlines()
+
+        #expect(widgetArticles == appArticles)
+        #expect(widgetClient.calls == 0)
+    }
+
+    // MARK: - Coalescing
+
     @Test(.timeLimit(.minutes(1)))
     func concurrentCallersShareOneRequest() async throws {
         let gate = Gate()

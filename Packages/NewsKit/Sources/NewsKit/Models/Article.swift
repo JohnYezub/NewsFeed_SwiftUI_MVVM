@@ -10,7 +10,7 @@ import Foundation
 /// Identified by its URL, which stays the same across reloads (unlike a generated UUID).
 public struct Article: Hashable, Identifiable, Sendable {
 
-    public struct Source: Hashable, Sendable, Decodable {
+    public struct Source: Hashable, Sendable, Codable {
         public let id: String?
         public let name: String
 
@@ -48,7 +48,7 @@ public struct Article: Hashable, Identifiable, Sendable {
     }
 }
 
-extension Article: Decodable {
+extension Article: Codable {
 
     private enum CodingKeys: String, CodingKey {
         case source, author, title, description, url, urlToImage, publishedAt
@@ -72,6 +72,19 @@ extension Article: Decodable {
         description = try container.decodeIfPresent(String.self, forKey: .description)
         urlToImage = try container.decodeIfPresent(String.self, forKey: .urlToImage).flatMap { URL(string: $0) }.flatMap { $0.isWebLink ? $0 : nil }
         publishedAt = try container.decodeIfPresent(String.self, forKey: .publishedAt).flatMap(Self.parseDate)
+    }
+
+    /// Writes the same shape the API sends, so cached articles go through the same decoder.
+    public func encode(to encoder: any Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(source, forKey: .source)
+        try container.encodeIfPresent(author, forKey: .author)
+        try container.encode(title, forKey: .title)
+        try container.encodeIfPresent(description, forKey: .description)
+        try container.encode(url.absoluteString, forKey: .url)
+        try container.encodeIfPresent(urlToImage?.absoluteString, forKey: .urlToImage)
+        try container.encodeIfPresent(publishedAt?.formatted(Date.ISO8601FormatStyle(includingFractionalSeconds: true)),
+                                      forKey: .publishedAt)
     }
 
     /// newsapi.org sends ISO 8601 dates, sometimes with fractional seconds.

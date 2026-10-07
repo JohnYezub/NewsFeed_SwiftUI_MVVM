@@ -6,6 +6,7 @@
 import Foundation
 import NewsKit
 import Observation
+import WidgetKit
 
 /// Headlines screen state, shared by the iOS and watchOS apps.
 @Observable
@@ -27,10 +28,15 @@ final class NewsListViewModel {
     var externalArticleURL: URL?
 
     private let provider: any HeadlinesProviding
+    private let headlinesDidChange: () -> Void
     private var pendingArticleURL: URL?
 
-    init(provider: any HeadlinesProviding = NewsRepository.shared) {
+    /// - Parameter headlinesDidChange: Called when newer headlines arrive; by default asks WidgetKit
+    ///   to redraw the widget from the shared cache so it shows the same stories as the app.
+    init(provider: any HeadlinesProviding = NewsRepository.shared,
+         headlinesDidChange: @escaping () -> Void = { WidgetCenter.shared.reloadTimelines(ofKind: WidgetKind.headlines) }) {
         self.provider = provider
+        self.headlinesDidChange = headlinesDidChange
     }
 
     var articles: [Article] {
@@ -47,13 +53,19 @@ final class NewsListViewModel {
         }
         state = .loading
         do throws(NewsAPIError) {
-            state = .loaded(try await provider.topHeadlines(forceRefresh: false))
+            show(try await provider.topHeadlines(forceRefresh: false))
         } catch .cancelled {
             // The view went away mid-load; start over next time it appears.
             state = .idle
             return
         } catch {
-            state = .failed(error)
+            // Offline or failing: fall back to the last headlines we have, and say why they may be old.
+            if let cached = await provider.lastKnownHeadlines(), !cached.isEmpty {
+                state = .loaded(cached)
+                refreshError = error
+            } else {
+                state = .failed(error)
+            }
         }
         resolvePendingArticle()
     }
@@ -61,7 +73,7 @@ final class NewsListViewModel {
     /// Pull-to-refresh: keeps the current headlines on screen if the reload fails.
     func refresh() async {
         do throws(NewsAPIError) {
-            state = .loaded(try await provider.topHeadlines(forceRefresh: true))
+            show(try await provider.topHeadlines(forceRefresh: true))
             refreshError = nil
         } catch .cancelled {
             return
@@ -71,6 +83,14 @@ final class NewsListViewModel {
             } else {
                 state = .failed(error)
             }
+        }
+    }
+
+    private func show(_ articles: [Article]) {
+        let changed = articles != self.articles
+        state = .loaded(articles)
+        if changed {
+            headlinesDidChange()
         }
     }
 

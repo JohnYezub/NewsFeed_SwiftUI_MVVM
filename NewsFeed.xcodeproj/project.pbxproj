@@ -14,6 +14,8 @@
 		ACD80081D849D59DB7013483 /* NewsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7FC19AC4E076DF1D16F68CA7 /* NewsKit */; };
 		CCB3F97979E809B257B6169C /* NewsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 82B3AA9B657864DBC06D9011 /* NewsKit */; };
 		AE33BBD95A22DC282895BF14 /* NewsKit in Frameworks */ = {isa = PBXBuildFile; productRef = E59B5F9C07919AE343E6125E /* NewsKit */; };
+		3242B8080059377A7A2946BD /* NewsKit in Frameworks */ = {isa = PBXBuildFile; productRef = 12D626096CF23DFCFD1AF8D4 /* NewsKit */; };
+		51B15E0C59518E7B50E414D1 /* NewsFeedWatchWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 29A2DA3851EF9DDADD2F7639 /* NewsFeedWatchWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +39,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 84D44E0F2563F493009CA9DA;
 			remoteInfo = NewsFeed;
+		};
+		E435BE5F79854A8F4BD6B540 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84D44E082563F493009CA9DA /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 22ED5CB36C3BB9B5D68D5734;
+			remoteInfo = NewsFeedWatchWidgetExtension;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -63,6 +72,17 @@
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B364E434D6AD2AEFCAD628D3 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				51B15E0C59518E7B50E414D1 /* NewsFeedWatchWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -73,6 +93,7 @@
 		84D44E102563F493009CA9DA /* NewsFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42AB4C958FA97A19F50466AF /* NewsFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DB240FB4561DD407D81B38F0 /* NewsKit */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = NewsKit; path = Packages/NewsKit; sourceTree = "<group>"; };
+		29A2DA3851EF9DDADD2F7639 /* NewsFeedWatchWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = NewsFeedWatchWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -105,6 +126,22 @@
 				Info.plist,
 			);
 			target = 84B989CF2566949E00257DE5 /* NewsFeedWatch */;
+		};
+		C64709004F4525143D970886 /* Exceptions for "NewsFeedWatchWidget" folder in "NewsFeedWatchWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 22ED5CB36C3BB9B5D68D5734 /* NewsFeedWatchWidgetExtension */;
+		};
+		3B17DF9C0A90C33D6C0F5D99 /* Exceptions for "NewsWidget" folder in "NewsFeedWatchWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				HeadlinesProvider.swift,
+				HeadlinesWidget.swift,
+				HeadlinesWidgetView.swift,
+			);
+			target = 22ED5CB36C3BB9B5D68D5734 /* NewsFeedWatchWidgetExtension */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -140,8 +177,17 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				831E430382A0C63AFB0F25AA /* Exceptions for "NewsWidget" folder in "NewsWidgetExtension" target */,
+				3B17DF9C0A90C33D6C0F5D99 /* Exceptions for "NewsWidget" folder in "NewsFeedWatchWidgetExtension" target */,
 			);
 			path = NewsWidget;
+			sourceTree = "<group>";
+		};
+		671EA383EC0F8AC03FE655D5 /* NewsFeedWatchWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				C64709004F4525143D970886 /* Exceptions for "NewsFeedWatchWidget" folder in "NewsFeedWatchWidgetExtension" target */,
+			);
+			path = NewsFeedWatchWidget;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -180,6 +226,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		827B060DA53648BBE59F9CAE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3242B8080059377A7A2946BD /* NewsKit in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -201,6 +255,7 @@
 				F9373EDA084A472CDA6B8011 /* NewsFeedTests */,
 				E797C574CC8A7D5137D4409D /* NewsWidget */,
 				4A41519F2D315F91DA22C31B /* NewsFeedWatch */,
+				671EA383EC0F8AC03FE655D5 /* NewsFeedWatchWidget */,
 				84B989952566556700257DE5 /* Frameworks */,
 				84D44E112563F493009CA9DA /* Products */,
 			);
@@ -212,6 +267,7 @@
 				84D44E102563F493009CA9DA /* NewsFeed.app */,
 				84B989942566556700257DE5 /* NewsWidgetExtension.appex */,
 				84B989D02566949E00257DE5 /* NewsFeedWatch.app */,
+				29A2DA3851EF9DDADD2F7639 /* NewsFeedWatchWidgetExtension.appex */,
 				42AB4C958FA97A19F50466AF /* NewsFeedTests.xctest */,
 			);
 			name = Products;
@@ -250,10 +306,12 @@
 				84B989D8256694A100257DE5 /* Sources */,
 				84B989D9256694A100257DE5 /* Frameworks */,
 				84B989CE2566949E00257DE5 /* Resources */,
+				B364E434D6AD2AEFCAD628D3 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				E3C8480ABF6E221B58E1099D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				4A41519F2D315F91DA22C31B /* NewsFeedWatch */,
@@ -316,6 +374,29 @@
 			productReference = 42AB4C958FA97A19F50466AF /* NewsFeedTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		22ED5CB36C3BB9B5D68D5734 /* NewsFeedWatchWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 43F505D5783A16861494C07D /* Build configuration list for PBXNativeTarget "NewsFeedWatchWidgetExtension" */;
+			buildPhases = (
+				09B42DC7A77397C0061C85FF /* Sources */,
+				827B060DA53648BBE59F9CAE /* Frameworks */,
+				23AB72D1BD5C938C04938C2F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				671EA383EC0F8AC03FE655D5 /* NewsFeedWatchWidget */,
+			);
+			name = NewsFeedWatchWidgetExtension;
+			packageProductDependencies = (
+				12D626096CF23DFCFD1AF8D4 /* NewsKit */,
+			);
+			productName = NewsFeedWatchWidgetExtension;
+			productReference = 29A2DA3851EF9DDADD2F7639 /* NewsFeedWatchWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -326,6 +407,9 @@
 				LastSwiftUpdateCheck = 2630;
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
+					22ED5CB36C3BB9B5D68D5734 = {
+						CreatedOnToolsVersion = 26.3;
+					};
 					1829EBB28B8571BDF8D8689B = {
 						CreatedOnToolsVersion = 26.3;
 						TestTargetID = 84D44E0F2563F493009CA9DA;
@@ -361,6 +445,7 @@
 				84D44E0F2563F493009CA9DA /* NewsFeed */,
 				84B989932566556700257DE5 /* NewsWidgetExtension */,
 				84B989CF2566949E00257DE5 /* NewsFeedWatch */,
+				22ED5CB36C3BB9B5D68D5734 /* NewsFeedWatchWidgetExtension */,
 				1829EBB28B8571BDF8D8689B /* NewsFeedTests */,
 			);
 		};
@@ -389,6 +474,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		178090148A36F85900614189 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		23AB72D1BD5C938C04938C2F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -426,6 +518,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		09B42DC7A77397C0061C85FF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -444,12 +543,18 @@
 			target = 84D44E0F2563F493009CA9DA /* NewsFeed */;
 			targetProxy = 9C32901B4532E78DAC5E807C /* PBXContainerItemProxy */;
 		};
+		E3C8480ABF6E221B58E1099D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 22ED5CB36C3BB9B5D68D5734 /* NewsFeedWatchWidgetExtension */;
+			targetProxy = E435BE5F79854A8F4BD6B540 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		84B989A42566556A00257DE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Config/Entitlements/NewsWidget.entitlements;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
@@ -472,6 +577,7 @@
 		84B989A52566556A00257DE5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Config/Entitlements/NewsWidget.entitlements;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_STYLE = Automatic;
@@ -494,6 +600,7 @@
 		84B989F8256694A400257DE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Config/Entitlements/NewsFeedWatch.entitlements;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -523,6 +630,7 @@
 		84B989F9256694A400257DE5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Config/Entitlements/NewsFeedWatch.entitlements;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -691,6 +799,7 @@
 		84D44E202563F496009CA9DA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Config/Entitlements/NewsFeed.entitlements;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -713,6 +822,7 @@
 		84D44E212563F496009CA9DA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Config/Entitlements/NewsFeed.entitlements;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -764,6 +874,58 @@
 			};
 			name = Release;
 		};
+		7C68E6EDAADC48DFAE5337F5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = Config/Entitlements/NewsFeedWatchWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WZ6RX2T84D;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewsFeedWatchWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewsFeed;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = EvgenyEzub.NewsFeed.watchkitapp.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Debug;
+		};
+		4E2598A4551805F12E27C089 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = Config/Entitlements/NewsFeedWatchWidget.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = WZ6RX2T84D;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NewsFeedWatchWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewsFeed;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = EvgenyEzub.NewsFeed.watchkitapp.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = 4;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -812,6 +974,15 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		43F505D5783A16861494C07D /* Build configuration list for PBXNativeTarget "NewsFeedWatchWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7C68E6EDAADC48DFAE5337F5 /* Debug */,
+				4E2598A4551805F12E27C089 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
 
 /* Begin XCLocalSwiftPackageReference section */
@@ -831,6 +1002,10 @@
 			productName = NewsKit;
 		};
 		E59B5F9C07919AE343E6125E /* NewsKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = NewsKit;
+		};
+		12D626096CF23DFCFD1AF8D4 /* NewsKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = NewsKit;
 		};

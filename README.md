@@ -33,12 +33,15 @@ The app needs a [newsapi.org](https://newsapi.org) API key. **Please use your ow
    ```
 4. Open `NewsFeed.xcodeproj` (Xcode 26+) and run the `NewsFeed` scheme. If the key is empty the console shows `NewsAPI key is missing` and the list stays empty.
 
+Signing: the targets use the App Group `group.EvgenyEzub.NewsFeed`. With automatic signing Xcode registers it for your team; if you use your own team, change the group in `Config/Entitlements/*.entitlements` and `FileHeadlinesStore.appGroupIdentifier`.
+
 How it works: `Secrets.xcconfig` → build setting `NEWS_API_KEY` → Info.plist `NewsAPIKey` (app, widget and watch extension) → `NewsAPIConfiguration`, which sends it in the `X-Api-Key` header.
 
 ### Project structure:
 * `Packages/NewsKit` — local Swift package shared by every target: `Article` model, `LiveNewsAPIClient` (async/await, typed `NewsAPIError`), `NewsRepository` (in-memory cache, request coalescing, de-duplication), date formatting, `ImageLoader` and the widget's `HeadlineSchedule`.
 * `NewsFeed` — iOS app (SwiftUI, MVVM with `@Observable`): `App/`, `Features/NewsList`, `Features/ArticleDetail`; `Shared/` (view model, error texts, sample data) is also compiled into the watch app.
-* `NewsWidget` — WidgetKit extension. Tapping a headline opens `newsfeed://article?url=<article URL>` (see `DeepLink` in NewsKit).
+* `NewsWidget` — WidgetKit extension (small/medium/large, Lock Screen). Its sources are shared with `NewsFeedWatchWidget` (watch complications). Tapping a headline opens `newsfeed://article?url=<article URL>` (see `DeepLink` in NewsKit).
+* App and widgets share the last downloaded headlines through the App Group `group.EvgenyEzub.NewsFeed` (`Config/Entitlements`), so they show the same stories and keep working offline.
 * `NewsFeedWatch` — standalone SwiftUI watchOS app.
 * `NewsFeedTests` — app tests; `Packages/NewsKit/Tests` — package tests (Swift Testing).
 

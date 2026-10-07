@@ -46,5 +46,9 @@ nonisolated struct PreviewHeadlines: HeadlinesProviding {
     func topHeadlines(forceRefresh: Bool) async throws(NewsAPIError) -> [Article] {
         try result.get()
     }
+
+    func lastKnownHeadlines() async -> [Article]? {
+        nil
+    }
 }
 #endif

@@ -31,4 +31,32 @@ public enum HeadlineSchedule {
     public static func retryDate(after now: Date) -> Date {
         now.addingTimeInterval(retryInterval)
     }
+
+    /// What a widget timeline should contain.
+    public struct Plan: Equatable, Sendable {
+        public struct Item: Equatable, Sendable {
+            public let date: Date
+            public let article: Article
+            /// The stories after `article`, for layouts that list more than one.
+            public let upNext: [Article]
+        }
+
+        public let items: [Item]
+        /// When to ask for a new timeline; `nil` means after the last item.
+        public let reloadDate: Date?
+    }
+
+    /// Fresh headlines rotate through the full schedule. Without them, cached headlines (or nothing)
+    /// are shown and a reload is requested after `retryInterval`, so the widget recovers soon after
+    /// the network does.
+    public static func plan(fresh: [Article]?, lastKnown: [Article]?, now: Date, upNextCount: Int = 3) -> Plan {
+        let isFresh = fresh?.isEmpty == false
+        let articles = isFresh ? fresh ?? [] : lastKnown ?? []
+        let items = slots(for: articles, startingAt: now).map { slot in
+            Plan.Item(date: slot.date,
+                      article: slot.article,
+                      upNext: Array(articles.dropFirst(slot.index + 1).prefix(upNextCount)))
+        }
+        return Plan(items: items, reloadDate: isFresh ? nil : retryDate(after: now))
+    }
 }

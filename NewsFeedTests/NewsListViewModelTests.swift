@@ -15,9 +15,15 @@ struct NewsListViewModelTests {
     nonisolated final class MockHeadlines: HeadlinesProviding {
         private let results: Mutex<[Result<[Article], NewsAPIError>]>
         private let recordedCalls = Mutex<[Bool]>([])
+        private let lastKnown: [Article]?
 
-        init(_ results: Result<[Article], NewsAPIError>...) {
+        init(_ results: Result<[Article], NewsAPIError>..., lastKnown: [Article]? = nil) {
             self.results = Mutex(results)
+            self.lastKnown = lastKnown
+        }
+
+        func lastKnownHeadlines() async -> [Article]? {
+            lastKnown
         }
 
         var calls: [Bool] { recordedCalls.withLock { $0 } }
@@ -39,6 +45,10 @@ struct NewsListViewModelTests {
         }
 
         var hasStarted: Bool { state.withLock { $0.started } }
+
+        func lastKnownHeadlines() async -> [Article]? {
+            nil
+        }
 
         func open() {
             let waiters = state.withLock { state in
@@ -69,6 +79,11 @@ struct NewsListViewModelTests {
     nonisolated private static let first = [article("A"), article("B")]
     nonisolated private static let second = [article("C")]
 
+    /// Keeps tests away from the real WidgetCenter.
+    private func makeViewModel(_ provider: any HeadlinesProviding, headlinesDidChange: @escaping () -> Void = {}) -> NewsListViewModel {
+        NewsListViewModel(provider: provider, headlinesDidChange: headlinesDidChange)
+    }
+
     private func link(to article: Article) -> URL {
         DeepLink.article(article.url).url
     }
@@ -76,7 +91,7 @@ struct NewsListViewModelTests {
     // MARK: - Loading
 
     @Test func startsIdle() {
-        let viewModel = NewsListViewModel(provider: MockHeadlines())
+        let viewModel = makeViewModel(MockHeadlines())
 
         #expect(viewModel.state == .idle)
         #expect(viewModel.articles.isEmpty)
@@ -84,7 +99,7 @@ struct NewsListViewModelTests {
 
     @Test func loadPublishesHeadlines() async {
         let provider = MockHeadlines(.success(Self.first))
-        let viewModel = NewsListViewModel(provider: provider)
+        let viewModel = makeViewModel(provider)
 
         await viewModel.load()
 
@@ -93,7 +108,7 @@ struct NewsListViewModelTests {
     }
 
     @Test func loadFailureShowsError() async {
-        let viewModel = NewsListViewModel(provider: MockHeadlines(.failure(.transport(.notConnectedToInternet))))
+        let viewModel = makeViewModel(MockHeadlines(.failure(.transport(.notConnectedToInternet))))
 
         await viewModel.load()
 
@@ -102,7 +117,7 @@ struct NewsListViewModelTests {
 
     @Test func loadIsIdempotentOnceLoaded() async {
         let provider = MockHeadlines(.success(Self.first), .success(Self.second))
-        let viewModel = NewsListViewModel(provider: provider)
+        let viewModel = makeViewModel(provider)
 
         await viewModel.load()
         await viewModel.load()
@@ -113,7 +128,7 @@ struct NewsListViewModelTests {
 
     @Test func loadRetriesAfterFailure() async {
         let provider = MockHeadlines(.failure(.invalidResponse), .success(Self.first))
-        let viewModel = NewsListViewModel(provider: provider)
+        let viewModel = makeViewModel(provider)
 
         await viewModel.load()
         await viewModel.load()
@@ -122,18 +137,71 @@ struct NewsListViewModelTests {
     }
 
     @Test func cancelledLoadReturnsToIdle() async {
-        let viewModel = NewsListViewModel(provider: MockHeadlines(.failure(.cancelled)))
+        let viewModel = makeViewModel(MockHeadlines(.failure(.cancelled)))
 
         await viewModel.load()
 
         #expect(viewModel.state == .idle)
     }
 
+    @Test func offlineLoadShowsLastKnownHeadlinesAndReportsError() async {
+        let viewModel = makeViewModel(MockHeadlines(.failure(.transport(.notConnectedToInternet)), lastKnown: Self.first))
+
+        await viewModel.load()
+
+        #expect(viewModel.state == .loaded(Self.first))
+        #expect(viewModel.refreshError == .transport(.notConnectedToInternet))
+    }
+
+    @Test func emptyLastKnownHeadlinesStillShowError() async {
+        let viewModel = makeViewModel(MockHeadlines(.failure(.invalidResponse), lastKnown: []))
+
+        await viewModel.load()
+
+        #expect(viewModel.state == .failed(.invalidResponse))
+        #expect(viewModel.refreshError == nil)
+    }
+
+    // MARK: - Widget reloads
+
+    @Test func newHeadlinesAskWidgetToReload() async {
+        let reloads = Mutex(0)
+        let viewModel = makeViewModel(MockHeadlines(.success(Self.first), .success(Self.second)),
+                                      headlinesDidChange: { reloads.withLock { $0 += 1 } })
+
+        await viewModel.load()
+        await viewModel.refresh()
+
+        #expect(reloads.withLock { $0 } == 2)
+    }
+
+    @Test func unchangedHeadlinesDoNotReloadWidget() async {
+        let reloads = Mutex(0)
+        let viewModel = makeViewModel(MockHeadlines(.success(Self.first), .success(Self.first), .failure(.invalidResponse)),
+                                      headlinesDidChange: { reloads.withLock { $0 += 1 } })
+
+        await viewModel.load()
+        await viewModel.refresh()
+        await viewModel.refresh()
+
+        #expect(reloads.withLock { $0 } == 1)
+    }
+
+    @Test func cachedFallbackDoesNotReloadWidget() async {
+        let reloads = Mutex(0)
+        let viewModel = makeViewModel(MockHeadlines(.failure(.transport(.timedOut)), lastKnown: Self.first),
+                                      headlinesDidChange: { reloads.withLock { $0 += 1 } })
+
+        await viewModel.load()
+
+        #expect(reloads.withLock { $0 } == 0)
+    }
+
     // MARK: - Refresh
 
     @Test func refreshForcesReloadAndReplacesHeadlines() async {
         let provider = MockHeadlines(.success(Self.first), .success(Self.second))
-        let viewModel = NewsListViewModel(provider: provider)
+        let viewModel = makeViewModel(provider)
 
         await viewModel.load()
         await viewModel.refresh()
@@ -143,7 +211,7 @@ struct NewsListViewModelTests {
     }
 
     @Test func failedRefreshKeepsHeadlinesAndReportsError() async {
-        let viewModel = NewsListViewModel(provider: MockHeadlines(.success(Self.first), .failure(.http(statusCode: 500, code: nil, message: nil))))
+        let viewModel = makeViewModel(MockHeadlines(.success(Self.first), .failure(.http(statusCode: 500, code: nil, message: nil))))
 
         await viewModel.load()
         await viewModel.refresh()
@@ -153,7 +221,7 @@ struct NewsListViewModelTests {
     }
 
     @Test func successfulRefreshClearsPreviousRefreshError() async {
-        let viewModel = NewsListViewModel(provider: MockHeadlines(.success(Self.first), .failure(.invalidResponse), .success(Self.second)))
+        let viewModel = makeViewModel(MockHeadlines(.success(Self.first), .failure(.invalidResponse), .success(Self.second)))
 
         await viewModel.load()
         await viewModel.refresh()
@@ -164,7 +232,7 @@ struct NewsListViewModelTests {
     }
 
     @Test func refreshFromErrorScreenShowsNewError() async {
-        let viewModel = NewsListViewModel(provider: MockHeadlines(.failure(.invalidResponse), .failure(.missingAPIKey)))
+        let viewModel = makeViewModel(MockHeadlines(.failure(.invalidResponse), .failure(.missingAPIKey)))
 
         await viewModel.load()
         await viewModel.refresh()
@@ -174,7 +242,7 @@ struct NewsListViewModelTests {
     }
 
     @Test func cancelledRefreshChangesNothing() async {
-        let viewModel = NewsListViewModel(provider: MockHeadlines(.success(Self.first), .failure(.cancelled)))
+        let viewModel = makeViewModel(MockHeadlines(.success(Self.first), .failure(.cancelled)))
 
         await viewModel.load()
         await viewModel.refresh()
@@ -186,7 +254,7 @@ struct NewsListViewModelTests {
     // MARK: - Deep links
 
     @Test func articleLinkOpensLoadedArticle() async {
-        let viewModel = NewsListViewModel(provider: MockHeadlines(.success(Self.first)))
+        let viewModel = makeViewModel(MockHeadlines(.success(Self.first)))
         await viewModel.load()
 
         #expect(viewModel.handle(link(to: Self.first[1])))
@@ -196,7 +264,7 @@ struct NewsListViewModelTests {
     }
 
     @Test func articleLinkReceivedBeforeLoadOpensOnceLoaded() async {
-        let viewModel = NewsListViewModel(provider: MockHeadlines(.success(Self.first)))
+        let viewModel = makeViewModel(MockHeadlines(.success(Self.first)))
 
         viewModel.handle(link(to: Self.first[0]))
         #expect(viewModel.path.isEmpty)
@@ -208,7 +276,7 @@ struct NewsListViewModelTests {
     @Test(.timeLimit(.minutes(1)))
     func articleLinkReceivedWhileLoadingOpensOnceLoaded() async {
         let provider = GatedHeadlines(Self.first)
-        let viewModel = NewsListViewModel(provider: provider)
+        let viewModel = makeViewModel(provider)
 
         let load = Task { await viewModel.load() }
         while !provider.hasStarted { await Task.yield() }
@@ -226,7 +294,7 @@ struct NewsListViewModelTests {
     }
 
     @Test func unknownArticleOpensInBrowser() async {
-        let viewModel = NewsListViewModel(provider: MockHeadlines(.success(Self.first)))
+        let viewModel = makeViewModel(MockHeadlines(.success(Self.first)))
         await viewModel.load()
         let other = Self.article("Not in the list")
 
@@ -237,7 +305,7 @@ struct NewsListViewModelTests {
     }
 
     @Test func articleLinkStillOpensWhenLoadFails() async {
-        let viewModel = NewsListViewModel(provider: MockHeadlines(.failure(.transport(.timedOut))))
+        let viewModel = makeViewModel(MockHeadlines(.failure(.transport(.timedOut))))
 
         viewModel.handle(link(to: Self.first[0]))
         await viewModel.load()
@@ -246,7 +314,7 @@ struct NewsListViewModelTests {
     }
 
     @Test func headlinesLinkPopsToList() async {
-        let viewModel = NewsListViewModel(provider: MockHeadlines(.success(Self.first)))
+        let viewModel = makeViewModel(MockHeadlines(.success(Self.first)))
         await viewModel.load()
         viewModel.path = [Self.first[0]]
 
@@ -257,7 +325,7 @@ struct NewsListViewModelTests {
 
     @Test(arguments: ["https://example.com", "NewsWidgetURL://link/3", "newsfeed://article"])
     func ignoresForeignLinks(string: String) async {
-        let viewModel = NewsListViewModel(provider: MockHeadlines(.success(Self.first)))
+        let viewModel = makeViewModel(MockHeadlines(.success(Self.first)))
         await viewModel.load()
 
         #expect(viewModel.handle(URL(string: string)!) == false)

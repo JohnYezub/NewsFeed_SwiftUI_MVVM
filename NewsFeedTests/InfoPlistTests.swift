@@ -16,7 +16,7 @@ struct InfoPlistTests {
         #expect(Bundle.main.object(forInfoDictionaryKey: NewsAPIConfiguration.infoPlistKey) is String)
     }
 
-    @Test(arguments: ["NewsFeed/Info.plist", "NewsWidget/Info.plist", "NewsFeedWatch/Info.plist"])
+    @Test(arguments: ["NewsFeed/Info.plist", "NewsWidget/Info.plist", "NewsFeedWatch/Info.plist", "NewsFeedWatchWidget/Info.plist"])
     func everyTargetInfoPlistForwardsAPIKeyBuildSetting(path: String) throws {
         let repositoryRoot = URL(fileURLWithPath: #filePath).deletingLastPathComponent().deletingLastPathComponent()
         let data = try Data(contentsOf: repositoryRoot.appendingPathComponent(path))
