@@ -17,7 +17,7 @@ class NetworkService {
         }
         
         guard let configuration = NewsAPIConfiguration.main else {
-            print("NewsAPI key is missing: copy Config/Secrets.example.xcconfig to Config/Secrets.xcconfig and set NEWS_API_KEY")
+            print("NewsAPI key is missing: get your own key at https://newsapi.org/register, copy Config/Secrets.example.xcconfig to Config/Secrets.xcconfig and set NEWS_API_KEY = <your key>")
             completeOnMain(nil)
             return
         }

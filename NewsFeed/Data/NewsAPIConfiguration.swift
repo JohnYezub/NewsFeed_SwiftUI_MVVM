@@ -7,8 +7,13 @@ import Foundation
 
 /// Endpoint and credentials for newsapi.org.
 ///
-/// The API key is never stored in source code. It is injected at build time:
-/// `Config/Secrets.xcconfig` → `NEWS_API_KEY` → Info.plist `NewsAPIKey`.
+/// Use your own API key (free at https://newsapi.org/register) — do not paste it here.
+/// Put it into `Config/Secrets.xcconfig` (git-ignored):
+///
+///     cp Config/Secrets.example.xcconfig Config/Secrets.xcconfig
+///     # then edit the line:  NEWS_API_KEY = <your key>
+///
+/// At build time it flows `NEWS_API_KEY` → Info.plist `NewsAPIKey` → `NewsAPIConfiguration.main`.
 struct NewsAPIConfiguration {
 
     static let infoPlistKey = "NewsAPIKey"
