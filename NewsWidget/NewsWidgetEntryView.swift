@@ -13,6 +13,13 @@ struct NewsWidgetEntryView : View {
     var entry: WidgetContent
     
     var body: some View {
+        content
+            //required since iOS 17, otherwise the system shows "Please adopt containerBackground API"
+            .containerBackground(Color("WidgetBackground"), for: .widget)
+    }
+    
+    @ViewBuilder
+    private var content: some View {
         switch widgetFamily {
         case .systemSmall:
             VStack {
@@ -21,7 +28,6 @@ struct NewsWidgetEntryView : View {
                     .lineLimit(nil)
                     .widgetURL(URL(string:"NewsWidgetURL://link/\(entry.url)")!)
             }
-            .padding()
         default:
             VStack {
                 //it doesnt matter how our link looks like, the important thing is to send news article id/number
@@ -38,7 +44,6 @@ struct NewsWidgetEntryView : View {
                     .font(.subheadline)
                     .lineLimit(nil)
             }
-            .padding()
         }
     }
     

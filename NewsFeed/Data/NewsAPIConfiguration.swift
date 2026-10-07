@@ -14,7 +14,7 @@ import Foundation
 ///     # then edit the line:  NEWS_API_KEY = <your key>
 ///
 /// At build time it flows `NEWS_API_KEY` → Info.plist `NewsAPIKey` → `NewsAPIConfiguration.main`.
-struct NewsAPIConfiguration {
+nonisolated struct NewsAPIConfiguration: Sendable {
 
     static let infoPlistKey = "NewsAPIKey"
 

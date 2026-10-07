@@ -5,38 +5,45 @@
 //  Created by   admin on 17.11.2020.
 //
 
+import Combine
 import SwiftUI
 
-class ListViewModel: ObservableObject {
+final class ListViewModel: ObservableObject {
+    
+    typealias LoadArticles = @Sendable () async -> [Article]?
+    typealias LoadImage = @Sendable (String) async -> UIImage?
     
     @Published var articles = [ViewModel]()
     
-    init() {
-        fetchData()
-        
+    private let loadArticles: LoadArticles
+    /// `nil` skips image downloads (the watch only shows text).
+    private let loadImage: LoadImage?
+    
+    init(autoload: Bool = true,
+         loadArticles: @escaping LoadArticles = { await NetworkService.loadArticles() },
+         loadImage: LoadImage? = { await ImageStore.image(from: $0) }) {
+        self.loadArticles = loadArticles
+        self.loadImage = loadImage
+        if autoload {
+            Task { await fetchData() }
+        }
     }
 
-    private func fetchData() {
-        NetworkService.loadData() { articles in
-            if let articles = articles {
-                self.articles = articles.map(ViewModel.init)
-                self.imagesData()
+    func fetchData() async {
+        guard let articles = await loadArticles() else { return }
+        self.articles = articles.map(ViewModel.init)
+        await loadImages()
+    }
+    
+    private func loadImages() async {
+        guard let loadImage else { return }
+        for article in articles {
+            guard let urlToImage = article.urlToImage,
+                  let image = await loadImage(urlToImage) else { continue }
+            // The list may have been replaced while the image was loading, so look the row up again.
+            if let index = articles.firstIndex(where: { $0.id == article.id }) {
+                articles[index].image = image
             }
         }
     }
-    
-    private func imagesData(_ index: Int = 0) {
-        //print(index)
-        guard articles.count > index else { return }
-        let article = articles[index]
-        if article.urlToImage != nil {
-        ImageStore.downloadImageBy(url: article.urlToImage!) {
-            self.articles[index].image = $0
-            self.imagesData(index + 1)
-        }
-        } else {
-            self.imagesData(index + 1)
-        }
-    }
 }
-

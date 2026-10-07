@@ -10,7 +10,6 @@
 		84B989972566556700257DE5 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B989962566556700257DE5 /* WidgetKit.framework */; };
 		84B989992566556700257DE5 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B989982566556700257DE5 /* SwiftUI.framework */; };
 		84B989A22566556A00257DE5 /* NewsWidgetExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 84B989942566556700257DE5 /* NewsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		84B989DD256694A100257DE5 /* NewsFeedWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 84B989DC256694A100257DE5 /* NewsFeedWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		84B989F6256694A400257DE5 /* NewsFeedWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 84B989D02566949E00257DE5 /* NewsFeedWatch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
@@ -21,13 +20,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = 84B989932566556700257DE5;
 			remoteInfo = NewsWidgetExtension;
-		};
-		84B989DE256694A100257DE5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 84D44E082563F493009CA9DA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 84B989DB256694A100257DE5;
-			remoteInfo = "NewsFeedWatch Extension";
 		};
 		84B989F4256694A400257DE5 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -68,17 +60,6 @@
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		84B989FA256694A400257DE5 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				84B989DD256694A100257DE5 /* NewsFeedWatch Extension.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -86,7 +67,6 @@
 		84B989962566556700257DE5 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		84B989982566556700257DE5 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		84B989D02566949E00257DE5 /* NewsFeedWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsFeedWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		84B989DC256694A100257DE5 /* NewsFeedWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "NewsFeedWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		84D44E102563F493009CA9DA /* NewsFeed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NewsFeed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		42AB4C958FA97A19F50466AF /* NewsFeedTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NewsFeedTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -108,7 +88,7 @@
 			);
 			target = 84B989932566556700257DE5 /* NewsWidgetExtension */;
 		};
-		F521FA4207345E3CD5ECDA47 /* Exceptions for "NewsFeed" folder in "NewsFeedWatch Extension" target */ = {
+		F521FA4207345E3CD5ECDA47 /* Exceptions for "NewsFeed" folder in "NewsFeedWatch" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				"Data/JSONModel.swift",
@@ -117,7 +97,7 @@
 				"View/ListViewModel.swift",
 				"View/ViewModel.swift",
 			);
-			target = 84B989DB256694A100257DE5 /* NewsFeedWatch Extension */;
+			target = 84B989CF2566949E00257DE5 /* NewsFeedWatch */;
 		};
 		831E430382A0C63AFB0F25AA /* Exceptions for "NewsWidget" folder in "NewsWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
@@ -133,14 +113,6 @@
 			);
 			target = 84B989CF2566949E00257DE5 /* NewsFeedWatch */;
 		};
-		D9B3850C405C6395449A7B10 /* Exceptions for "NewsFeedWatch Extension" folder in "NewsFeedWatch Extension" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-				PushNotificationPayload.apns,
-			);
-			target = 84B989DB256694A100257DE5 /* NewsFeedWatch Extension */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -154,7 +126,7 @@
 			exceptions = (
 				CA92E5B4B1A9CA68212035A1 /* Exceptions for "NewsFeed" folder in "NewsFeed" target */,
 				20AFE3EDA8401A11422878C3 /* Exceptions for "NewsFeed" folder in "NewsWidgetExtension" target */,
-				F521FA4207345E3CD5ECDA47 /* Exceptions for "NewsFeed" folder in "NewsFeedWatch Extension" target */,
+				F521FA4207345E3CD5ECDA47 /* Exceptions for "NewsFeed" folder in "NewsFeedWatch" target */,
 			);
 			path = NewsFeed;
 			sourceTree = "<group>";
@@ -170,14 +142,6 @@
 				A4461E67C8C12819EF107983 /* Exceptions for "NewsFeedWatch" folder in "NewsFeedWatch" target */,
 			);
 			path = NewsFeedWatch;
-			sourceTree = "<group>";
-		};
-		EC4248DEA94922982F9FED01 /* NewsFeedWatch Extension */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				D9B3850C405C6395449A7B10 /* Exceptions for "NewsFeedWatch Extension" folder in "NewsFeedWatch Extension" target */,
-			);
-			path = "NewsFeedWatch Extension";
 			sourceTree = "<group>";
 		};
 		E797C574CC8A7D5137D4409D /* NewsWidget */ = {
@@ -241,7 +205,6 @@
 				F9373EDA084A472CDA6B8011 /* NewsFeedTests */,
 				E797C574CC8A7D5137D4409D /* NewsWidget */,
 				4A41519F2D315F91DA22C31B /* NewsFeedWatch */,
-				EC4248DEA94922982F9FED01 /* NewsFeedWatch Extension */,
 				84B989952566556700257DE5 /* Frameworks */,
 				84D44E112563F493009CA9DA /* Products */,
 			);
@@ -253,7 +216,6 @@
 				84D44E102563F493009CA9DA /* NewsFeed.app */,
 				84B989942566556700257DE5 /* NewsWidgetExtension.appex */,
 				84B989D02566949E00257DE5 /* NewsFeedWatch.app */,
-				84B989DC256694A100257DE5 /* NewsFeedWatch Extension.appex */,
 				42AB4C958FA97A19F50466AF /* NewsFeedTests.xctest */,
 			);
 			name = Products;
@@ -288,13 +250,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84B989FE256694A400257DE5 /* Build configuration list for PBXNativeTarget "NewsFeedWatch" */;
 			buildPhases = (
+				84B989D8256694A100257DE5 /* Sources */,
+				84B989D9256694A100257DE5 /* Frameworks */,
 				84B989CE2566949E00257DE5 /* Resources */,
-				84B989FA256694A400257DE5 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				84B989DF256694A100257DE5 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				4A41519F2D315F91DA22C31B /* NewsFeedWatch */,
@@ -304,29 +266,7 @@
 			);
 			productName = NewsFeedWatch;
 			productReference = 84B989D02566949E00257DE5 /* NewsFeedWatch.app */;
-			productType = "com.apple.product-type.application.watchapp2";
-		};
-		84B989DB256694A100257DE5 /* NewsFeedWatch Extension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 84B989FD256694A400257DE5 /* Build configuration list for PBXNativeTarget "NewsFeedWatch Extension" */;
-			buildPhases = (
-				84B989D8256694A100257DE5 /* Sources */,
-				84B989D9256694A100257DE5 /* Frameworks */,
-				84B989DA256694A100257DE5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				EC4248DEA94922982F9FED01 /* NewsFeedWatch Extension */,
-			);
-			name = "NewsFeedWatch Extension";
-			packageProductDependencies = (
-			);
-			productName = "NewsFeedWatch Extension";
-			productReference = 84B989DC256694A100257DE5 /* NewsFeedWatch Extension.appex */;
-			productType = "com.apple.product-type.watchkit2-extension";
+			productType = "com.apple.product-type.application";
 		};
 		84D44E0F2563F493009CA9DA /* NewsFeed */ = {
 			isa = PBXNativeTarget;
@@ -397,9 +337,6 @@
 					84B989CF2566949E00257DE5 = {
 						CreatedOnToolsVersion = 12.1;
 					};
-					84B989DB256694A100257DE5 = {
-						CreatedOnToolsVersion = 12.1;
-					};
 					84D44E0F2563F493009CA9DA = {
 						CreatedOnToolsVersion = 12.1;
 					};
@@ -422,7 +359,6 @@
 				84D44E0F2563F493009CA9DA /* NewsFeed */,
 				84B989932566556700257DE5 /* NewsWidgetExtension */,
 				84B989CF2566949E00257DE5 /* NewsFeedWatch */,
-				84B989DB256694A100257DE5 /* NewsFeedWatch Extension */,
 				1829EBB28B8571BDF8D8689B /* NewsFeedTests */,
 			);
 		};
@@ -437,13 +373,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		84B989CE2566949E00257DE5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		84B989DA256694A100257DE5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -503,11 +432,6 @@
 			target = 84B989932566556700257DE5 /* NewsWidgetExtension */;
 			targetProxy = 84B989A02566556A00257DE5 /* PBXContainerItemProxy */;
 		};
-		84B989DF256694A100257DE5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 84B989DB256694A100257DE5 /* NewsFeedWatch Extension */;
-			targetProxy = 84B989DE256694A100257DE5 /* PBXContainerItemProxy */;
-		};
 		84B989F5256694A400257DE5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 84B989CF2566949E00257DE5 /* NewsFeedWatch */;
@@ -537,8 +461,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = EvgenyEzub.NewsFeed.NewsWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -559,8 +483,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = EvgenyEzub.NewsFeed.NewsWidget;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -568,90 +492,58 @@
 		84B989F8256694A400257DE5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"NewsFeedWatch/Preview Content\"";
 				DEVELOPMENT_TEAM = WZ6RX2T84D;
-				IBSC_MODULE = NewsFeedWatch_Extension;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NewsFeedWatch/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewsFeed;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = EvgenyEzub.NewsFeed;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = EvgenyEzub.NewsFeed.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
 			};
 			name = Debug;
 		};
 		84B989F9256694A400257DE5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_ASSET_PATHS = "\"NewsFeedWatch/Preview Content\"";
 				DEVELOPMENT_TEAM = WZ6RX2T84D;
-				IBSC_MODULE = NewsFeedWatch_Extension;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = NewsFeedWatch/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = NewsFeed;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = EvgenyEzub.NewsFeed;
+				INFOPLIST_KEY_WKRunsIndependentlyOfCompanionApp = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = EvgenyEzub.NewsFeed.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
-			};
-			name = Release;
-		};
-		84B989FB256694A400257DE5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"NewsFeedWatch Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = WZ6RX2T84D;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "NewsFeedWatch Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = EvgenyEzub.NewsFeed.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
-			};
-			name = Debug;
-		};
-		84B989FC256694A400257DE5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"NewsFeedWatch Extension/Preview Content\"";
-				DEVELOPMENT_TEAM = WZ6RX2T84D;
-				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "NewsFeedWatch Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = EvgenyEzub.NewsFeed.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.0;
 			};
 			name = Release;
 		};
@@ -691,6 +583,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -710,15 +603,20 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 6.0;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Debug;
 		};
@@ -758,6 +656,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -771,21 +670,25 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 6.0;
 				VALIDATE_PRODUCT = YES;
+				WATCHOS_DEPLOYMENT_TARGET = 11.0;
 			};
 			name = Release;
 		};
 		84D44E202563F496009CA9DA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -793,15 +696,14 @@
 				DEVELOPMENT_TEAM = WZ6RX2T84D;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = NewsFeed/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = EvgenyEzub.NewsFeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -809,7 +711,6 @@
 		84D44E212563F496009CA9DA /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
@@ -817,15 +718,14 @@
 				DEVELOPMENT_TEAM = WZ6RX2T84D;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = NewsFeed/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = EvgenyEzub.NewsFeed;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -835,15 +735,12 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WZ6RX2T84D;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = EvgenyEzub.NewsFeedTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NewsFeed.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NewsFeed";
 			};
@@ -854,15 +751,12 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = WZ6RX2T84D;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
-				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = EvgenyEzub.NewsFeedTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NewsFeed.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/NewsFeed";
 			};
@@ -876,15 +770,6 @@
 			buildConfigurations = (
 				84B989A42566556A00257DE5 /* Debug */,
 				84B989A52566556A00257DE5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		84B989FD256694A400257DE5 /* Build configuration list for PBXNativeTarget "NewsFeedWatch Extension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				84B989FB256694A400257DE5 /* Debug */,
-				84B989FC256694A400257DE5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

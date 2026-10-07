@@ -15,6 +15,10 @@ UPDT: Add WidgetKit and deeplinks. Add WatchOS support.
 * `Network services`
 
 
+### Requirements:
+* Xcode 26+ (Swift 6.2, strict concurrency, MainActor by default)
+* iOS 18+ (app and widget), watchOS 11+ (standalone SwiftUI watch app)
+
 ### Setup: your own NewsAPI key
 The app needs a [newsapi.org](https://newsapi.org) API key. **Please use your own key** — it is free:
 
@@ -27,7 +31,7 @@ The app needs a [newsapi.org](https://newsapi.org) API key. **Please use your ow
    ```
    NEWS_API_KEY = 0123456789abcdef0123456789abcdef
    ```
-4. Open `NewsFeed.xcodeproj` (Xcode 16+) and run the `NewsFeed` scheme. If the key is empty the console shows `NewsAPI key is missing` and the list stays empty.
+4. Open `NewsFeed.xcodeproj` (Xcode 26+) and run the `NewsFeed` scheme. If the key is empty the console shows `NewsAPI key is missing` and the list stays empty.
 
 How it works: `Secrets.xcconfig` → build setting `NEWS_API_KEY` → Info.plist `NewsAPIKey` (app, widget and watch extension) → `NewsAPIConfiguration`, which sends it in the `X-Api-Key` header.
 

@@ -6,11 +6,13 @@
 //
 
 import Foundation
-struct JSONModel: Codable {
+
+// Models are decoded off the main actor, so they opt out of the target's default MainActor isolation.
+nonisolated struct JSONModel: Codable, Sendable {
     let articles: [Article]
 }
 
-struct Article: Codable {
+nonisolated struct Article: Codable, Sendable {
     let source: Source
     let author: String?
     let title: String
@@ -22,7 +24,7 @@ struct Article: Codable {
     
 }
 // MARK: - Source
-struct Source: Codable {
+nonisolated struct Source: Codable, Sendable {
     let id: String?
     let name: String
 }

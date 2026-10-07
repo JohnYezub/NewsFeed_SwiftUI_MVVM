@@ -9,7 +9,8 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @StateObject var model: ListViewModel = ListViewModel()
+    //rows show text only, so skip image downloads on the watch
+    @StateObject var model: ListViewModel = ListViewModel(loadImage: nil)
     
     var body: some View {
         NavigationView {
