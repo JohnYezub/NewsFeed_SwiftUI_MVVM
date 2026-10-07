@@ -41,10 +41,13 @@ struct ViewModel: Identifiable {
     var publishedAt: String {
         //2020-11-11T21:04:00Z
         let df = DateFormatter()
+        // Fixed-format parsing must not depend on the user's calendar or 12/24-hour setting.
+        df.locale = Locale(identifier: "en_US_POSIX")
         df.dateFormat = "yyyy-MM-dd'T'HH:mm:ssZ"
         df.timeZone = TimeZone(abbreviation: "UTC")
         
         if let date = df.date(from: self.article.publishedAt) {
+            df.locale = .current
             df.dateStyle = .medium
             df.timeStyle = .short
             return df.string(from: date)

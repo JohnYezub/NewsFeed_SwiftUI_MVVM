@@ -25,5 +25,7 @@
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.widgetkit-extension</string>
 	</dict>
+	<key>NewsAPIKey</key>
+	<string>$(NEWS_API_KEY)</string>
 </dict>
 </plist>

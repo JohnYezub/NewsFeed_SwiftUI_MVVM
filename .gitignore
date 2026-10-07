@@ -19,3 +19,6 @@ xcuserdata/
 
 **/*.playground/playground.xcworkspace/xcshareddata/*
 !**/*.playground/playground.xcworkspace/xcshareddata/WorkspaceSettings.xcsettings
+
+# Local secrets (see Config/Secrets.example.xcconfig)
+Config/Secrets.xcconfig

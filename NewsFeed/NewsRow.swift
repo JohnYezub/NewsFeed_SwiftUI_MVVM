@@ -39,10 +39,10 @@ struct NewsRow: View {
                         .foregroundColor(.secondary)
                         .lineLimit(1)
                     Spacer()
-                    if let publishedAt = article.publishedAt {
-                    Text(publishedAt)
-                        .foregroundColor(.secondary)
-                        .lineLimit(1)
+                    if !article.publishedAt.isEmpty {
+                        Text(article.publishedAt)
+                            .foregroundColor(.secondary)
+                            .lineLimit(1)
                     }
                 }
                 .padding(.top)

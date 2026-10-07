@@ -1,0 +1,9 @@
+// Build settings shared by every target (set as the project-level base configuration).
+//
+// Secrets are kept out of git: copy Secrets.example.xcconfig to Secrets.xcconfig
+// and put your own newsapi.org key there. The key reaches the app through
+// Info.plist ("NewsAPIKey" = $(NEWS_API_KEY)).
+
+NEWS_API_KEY =
+
+#include? "Secrets.xcconfig"

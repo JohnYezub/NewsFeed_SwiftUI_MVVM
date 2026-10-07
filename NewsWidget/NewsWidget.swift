@@ -22,37 +22,24 @@ struct Provider: TimelineProvider {
     }
     
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        var entryDate = Date()
-        var entries: [WidgetContent] = []
-        
-        
-        //we gonna refresh news article every 10 min
-        //after it - generate new timeline
-        
-        WidgetContent.loadData { (articles) in
-            if let articles = articles, articles.count >= 5 {
-                                
-                for i in 0...5 {
-                    
-                    //generate date for time line
-                    entryDate = Calendar.current.date(byAdding: .minute, value: 10, to: entryDate)!
-                    
-                    //create entry
-                    let newsEntry = WidgetContent(date: entryDate, title: articles[i].title, description: articles[i].description ?? "", url: i)
-                    
-                    entries.append(newsEntry)
-
-                }
-                let timeline = Timeline(entries: entries, policy: .atEnd)
-                print("creates timeline with entries: \(entries.count)")
-                completion(timeline)
-                
-            } else {
-                print("Articles are zero")
+        //one news article every 10 min, then a new timeline is requested
+        NetworkService.loadData { articles in
+            let now = Date()
+            let entries = (articles ?? []).prefix(6).enumerated().map { index, article in
+                WidgetContent(date: Calendar.current.date(byAdding: .minute, value: 10 * index, to: now)!,
+                              title: article.title,
+                              description: article.description ?? "",
+                              url: index)
             }
             
+            guard !entries.isEmpty else {
+                //request failed: keep the placeholder and retry later instead of leaving the widget without a timeline
+                let retryDate = Calendar.current.date(byAdding: .minute, value: 15, to: now)!
+                completion(Timeline(entries: [defaultContent], policy: .after(retryDate)))
+                return
+            }
+            completion(Timeline(entries: entries, policy: .atEnd))
         }
-        
     }
 }
 
