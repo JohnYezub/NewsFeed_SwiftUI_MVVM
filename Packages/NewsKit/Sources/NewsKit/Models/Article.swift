@@ -62,14 +62,15 @@ extension Article: Decodable {
         title = try container.decode(String.self, forKey: .title)
 
         let urlString = try container.decode(String.self, forKey: .url)
-        guard let url = URL(string: urlString) else {
+        // Only web links: the app opens them in SFSafariViewController, which rejects other schemes.
+        guard let url = URL(string: urlString), url.isWebLink else {
             throw DecodingError.dataCorruptedError(forKey: .url, in: container, debugDescription: "Invalid article URL: \(urlString)")
         }
         self.url = url
 
         author = try container.decodeIfPresent(String.self, forKey: .author)
         description = try container.decodeIfPresent(String.self, forKey: .description)
-        urlToImage = try container.decodeIfPresent(String.self, forKey: .urlToImage).flatMap { URL(string: $0) }
+        urlToImage = try container.decodeIfPresent(String.self, forKey: .urlToImage).flatMap { URL(string: $0) }.flatMap { $0.isWebLink ? $0 : nil }
         publishedAt = try container.decodeIfPresent(String.self, forKey: .publishedAt).flatMap(Self.parseDate)
     }
 
@@ -79,5 +80,13 @@ extension Article: Decodable {
             return date
         }
         return try? Date(string, strategy: Date.ISO8601FormatStyle(includingFractionalSeconds: true))
+    }
+}
+
+extension URL {
+    /// An absolute `http` or `https` URL with a host.
+    var isWebLink: Bool {
+        guard let scheme = scheme?.lowercased(), scheme == "https" || scheme == "http" else { return false }
+        return host?.isEmpty == false
     }
 }

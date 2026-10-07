@@ -23,4 +23,10 @@ struct InfoPlistTests {
         let plist = try #require(PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any])
         #expect(plist[NewsAPIConfiguration.infoPlistKey] as? String == "$(NEWS_API_KEY)")
     }
+
+    @Test func appHandlesDeepLinkScheme() throws {
+        let urlTypes = try #require(Bundle.main.object(forInfoDictionaryKey: "CFBundleURLTypes") as? [[String: Any]])
+        let schemes = urlTypes.flatMap { $0["CFBundleURLSchemes"] as? [String] ?? [] }
+        #expect(schemes.contains(DeepLink.scheme))
+    }
 }

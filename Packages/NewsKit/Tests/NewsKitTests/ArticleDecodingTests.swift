@@ -64,7 +64,7 @@ struct ArticleDecodingTests {
     @Test func malformedOptionalFieldsBecomeNil() throws {
         let articles = try decode("""
         { "articles": [ { "source": { "name": "CNN" }, "title": "A", "url": "https://example.com/a",
-                          "urlToImage": "", "publishedAt": "yesterday" } ] }
+                          "urlToImage": "data:image/png;base64,AAAA", "publishedAt": "yesterday" } ] }
         """)
 
         let article = try #require(articles.first)
@@ -79,6 +79,9 @@ struct ArticleDecodingTests {
             { "source": { "name": "CNN" }, "url": "https://example.com/no-title" },
             { "source": { "name": "CNN" }, "title": "No URL" },
             { "source": { "name": "CNN" }, "title": "Bad URL", "url": "" },
+            { "source": { "name": "CNN" }, "title": "No scheme", "url": "www.example.com/story" },
+            { "source": { "name": "CNN" }, "title": "Not a web link", "url": "ftp://example.com/story" },
+            { "source": { "name": "CNN" }, "title": "No host", "url": "https:///story" },
             { "title": "No source", "url": "https://example.com/no-source" },
             { "source": { "name": "CNN" }, "title": "Last", "url": "https://example.com/2" }
         ] }

@@ -86,8 +86,9 @@
 		F521FA4207345E3CD5ECDA47 /* Exceptions for "NewsFeed" folder in "NewsFeedWatch" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				"View/ListViewModel.swift",
-				"View/ViewModel.swift",
+				"Shared/Article+Samples.swift",
+				"Shared/NewsAPIError+Presentation.swift",
+				"Shared/NewsListViewModel.swift",
 			);
 			target = 84B989CF2566949E00257DE5 /* NewsFeedWatch */;
 		};

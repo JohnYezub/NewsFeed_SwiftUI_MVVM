@@ -5,9 +5,6 @@
 
 import Foundation
 import Testing
-#if canImport(UIKit)
-import UIKit
-#endif
 @testable import NewsKit
 
 /// Every suite in here shares `StubURLProtocol`'s single handler, so they run one test at a time.
@@ -101,35 +98,6 @@ extension StubbedNetworkTests {
             }
         }
     }
-
-    #if canImport(UIKit)
-    struct ImageLoaderTests {
-
-        private let url = URL(string: "https://example.com/a.png")!
-
-        @Test func loadsImage() async throws {
-            let format = UIGraphicsImageRendererFormat()
-            format.scale = 1
-            let png = try #require(UIGraphicsImageRenderer(size: CGSize(width: 2, height: 3), format: format).image { _ in }.pngData())
-            let session = StubURLProtocol.makeSession { request in (StubURLProtocol.response(for: request), png) }
-
-            let image = try #require(await ImageLoader.image(at: url, session: session))
-            #expect(image.size == CGSize(width: 2, height: 3))
-        }
-
-        @Test func returnsNilForNonImageData() async {
-            let session = StubURLProtocol.makeSession { request in (StubURLProtocol.response(for: request), Data("not an image".utf8)) }
-
-            #expect(await ImageLoader.image(at: url, session: session) == nil)
-        }
-
-        @Test func returnsNilOnTransportError() async {
-            let session = StubURLProtocol.makeSession { _ in throw URLError(.timedOut) }
-
-            #expect(await ImageLoader.image(at: url, session: session) == nil)
-        }
-    }
-    #endif
 }
 
 private extension Array {

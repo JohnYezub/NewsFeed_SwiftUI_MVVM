@@ -7,9 +7,12 @@ import SwiftUI
 
 @main
 struct NewsFeedWatchApp: App {
+
+    @State private var viewModel = NewsListViewModel()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            WatchNewsListView(viewModel: viewModel)
         }
     }
 }

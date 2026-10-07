@@ -37,8 +37,8 @@ How it works: `Secrets.xcconfig` → build setting `NEWS_API_KEY` → Info.plist
 
 ### Project structure:
 * `Packages/NewsKit` — local Swift package shared by every target: `Article` model, `LiveNewsAPIClient` (async/await, typed `NewsAPIError`), `NewsRepository` (in-memory cache, request coalescing, de-duplication), date formatting, `ImageLoader` and the widget's `HeadlineSchedule`.
-* `NewsFeed` — iOS app (SwiftUI, MVVM).
-* `NewsWidget` — WidgetKit extension.
+* `NewsFeed` — iOS app (SwiftUI, MVVM with `@Observable`): `App/`, `Features/NewsList`, `Features/ArticleDetail`; `Shared/` (view model, error texts, sample data) is also compiled into the watch app.
+* `NewsWidget` — WidgetKit extension. Tapping a headline opens `newsfeed://article?url=<article URL>` (see `DeepLink` in NewsKit).
 * `NewsFeedWatch` — standalone SwiftUI watchOS app.
 * `NewsFeedTests` — app tests; `Packages/NewsKit/Tests` — package tests (Swift Testing).
 

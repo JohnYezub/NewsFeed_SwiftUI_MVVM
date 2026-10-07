@@ -5,9 +5,14 @@
 
 import Foundation
 
+/// Source of headlines; lets view models be tested without the network.
+public protocol HeadlinesProviding: Sendable {
+    func topHeadlines(forceRefresh: Bool) async throws(NewsAPIError) -> [Article]
+}
+
 /// Single entry point for headlines: caches the last successful response for `cacheLifetime`,
 /// shares one in-flight request between concurrent callers and cleans up the API's output.
-public actor NewsRepository {
+public actor NewsRepository: HeadlinesProviding {
 
     /// Shared instance backed by newsapi.org and the API key from Info.plist.
     public static let shared = NewsRepository(client: LiveNewsAPIClient())

@@ -33,7 +33,7 @@ nonisolated struct Provider: TimelineProvider {
             WidgetContent(date: slot.date,
                           title: slot.article.title,
                           description: slot.article.description ?? "",
-                          url: slot.index)
+                          link: .article(slot.article.url))
         }
         
         guard !entries.isEmpty else {
@@ -74,7 +74,7 @@ struct NewsWidget: Widget {
 struct NewsWidget_Previews: PreviewProvider {
     static var previews: some View {
         
-        NewsWidgetEntryView(entry: WidgetContent(date: Date(), title: "test title", description: "test description description description", url: 0))
+        NewsWidgetEntryView(entry: WidgetContent.placeholder)
             .previewContext(WidgetPreviewContext(family: .systemMedium))
     }
 }
